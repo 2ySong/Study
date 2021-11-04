@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "autoGuessEncoding": "true",
+        "ctime": "cpp",
+        "iomanip": "cpp"
+    }
+
+        
+  
+}
