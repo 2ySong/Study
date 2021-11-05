@@ -1405,7 +1405,7 @@ int sum(int a, int b = 20) {
   cout << (*p).name << ", " << (*p).age << ", " << (*p).score << endl;
   ```
 
-  - 结果<img src="C:/Users/szy/AppData/Roaming/Typora/typora-user-images/image-20211104124947926.png" alt="image-20211104124947926" width=200 />
+  - 结果<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111041504316.png" alt="image-20211104124947926" width=200 />
 
 ## 0036 结构体嵌套
 
@@ -1413,7 +1413,7 @@ int sum(int a, int b = 20) {
 
 - 例如：每个老师辅导一个学员，一个老师的结构体中，记录一个学生的结构体。
 
-- 示例：04_struct+nested.cpp
+- 示例：[04_struct+nested.cpp](https://github.com/Zhy-Song/Experiment-Project/blob/main/c%2B%2B/day8-struct/04_struct%2Bnested.cpp)
 
   ```c++
   teacher teachers[] = {
@@ -1424,3 +1424,119 @@ int sum(int a, int b = 20) {
   ```
 
   
+
+## 0037 结构体作函数参数
+
+- 作用：将结构体作为参数向函数中传递
+
+- 传递方式有两种
+
+  1. 值传递
+  2. 地址传递
+
+- 示例
+
+  ```c++
+  struct student {
+      string name;
+      int age;
+      double score;
+  };
+  
+  //1.值传递
+  void print_struct1(student s) {
+      s.age = 1000;
+      cout << s.name << ", " << s.age << ", " << s.score << endl;
+  }
+  
+  //2.地址传递
+  void print_struct2(student *p) {
+      p->age = 999;
+      cout << p->name << ", " << p->age << ", " << p->score << endl;
+  }
+  
+  int main() {
+      student s = {"Jack", 27, 89};
+      print_struct1(s);//Jack, 1000, 89
+      cout << s.age << endl;//27，年龄并未改变: 值传递
+      student *p = &s;
+      print_struct2(p);//Jack, 999, 89
+      cout << s.age << endl;//999，年龄改变: 地址传递
+      return 0;
+  }
+  ```
+
+  
+
+## 0038 结构体中的const
+
+- 将函数中的形参改为指针，可以减少内存空间，而且不会复制新的副本出来。（节省空间）
+
+- 作用：用 const来防止误操作
+
+  ```c++
+  struct person {
+      string name;
+      int age;
+  };
+  
+  void print_person(const person *p) {
+  //    p->age=9;//const关键字，不能修改
+      cout << p->name << ", " << p->age << endl;
+  }
+  
+  int main() {
+      person p = {"Tom", 45};
+      print_person(&p);
+      return 0;
+  }
+  ```
+
+- 两道练习题
+  - [练习题1](https://github.com/Zhy-Song/Experiment-Project/blob/main/c%2B%2B/day8-struct/07_exercise1.cpp)
+  - [练习题2](https://github.com/Zhy-Song/Experiment-Project/blob/main/c%2B%2B/day8-struct/08_exercise2.cpp)
+
+## 0039 随机数
+
+- 如何得到一个真随机数
+
+  ```c++
+  #include "iostream"
+  #include "ctime"
+  using namespace std;
+  int main(){
+      srand((unsigned)time(NULL));
+      cout<<rand();
+      return 0;
+  }
+  ```
+
+- 随机数范围
+
+  1. 产生[a,b)的随机数，可以使用 (rand() % (b-a))+a;
+  2. 产生[a,b]的随机数，可以使用 (rand() % (b-a+1))+a;
+  3. 产生(a,b]的随机数，可以使用 (rand() % (b-a))+a+1;
+  4. 通用公式：a+rand() % n;
+     - 其中：a为范围起始位置，n为整数的范围
+  5. 产生[a,b]的随机数，可以使用 a+(int)b*rand()/(RAND_MAX+1);
+  6. 产生[0,1]的浮点数，可以使用 rand()/double(RAND_MAX);
+
+  ---
+
+# Day-09 通讯录管理系统
+
+## 1. 系统需求
+
+- 通讯录是一个可以记录亲人、好友信息的工具
+- 本教程主要利用C++来实现一个通讯录管理系统
+- 系统中需要实现的功能如下
+  1. 添加联系人：向通讯录中添加新人，信息包括(姓名、性别、年龄、联系电话、家庭住址)最多记录1000人
+  2. 显示联系人：显示通讯录中所有联系人信息
+  3. 删除联系人：按照姓名进行删除指定联系人
+  4. 查找联系人：按照姓名查看指定联系人信息
+  5. 修改联系人：按照姓名重新修改指定联系人
+  6. 清空联系人：清空通讯录中所有信息
+  7. 退出通讯录：退出当前使用的通讯录
+
+- 清空屏幕：`system("cls");`
+

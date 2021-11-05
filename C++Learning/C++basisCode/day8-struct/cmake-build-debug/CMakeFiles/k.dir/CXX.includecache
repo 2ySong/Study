@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/Experiment-Project/c++/day8-struct/k.cpp
+iostream
+E:/Experiment-Project/c++/day8-struct/iostream
+ctime
+E:/Experiment-Project/c++/day8-struct/ctime
+

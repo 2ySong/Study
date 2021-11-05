@@ -1,0 +1,3 @@
+"D:\Program Files (x86)\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\tea_address_book.dir/objects.a
+C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\ar.exe cr CMakeFiles\tea_address_book.dir/objects.a @CMakeFiles\tea_address_book.dir\objects1.rsp
+C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\tea_address_book.dir/objects.a -Wl,--no-whole-archive -o tea_address_book.exe -Wl,--out-implib,libtea_address_book.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\tea_address_book.dir\linklibs.rsp

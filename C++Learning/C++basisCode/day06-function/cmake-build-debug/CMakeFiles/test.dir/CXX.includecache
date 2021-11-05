@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/Love me/c++/day06-function/test/max.h
+iostream
+-
+
+E:/Love me/c++/day06-function/test/test.cpp
+iostream
+-
+max.h
+E:/Love me/c++/day06-function/test/max.h
+
