@@ -37,16 +37,16 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             enemyTank.setDirect(1);
 //            int dir = (int)(Math.random()*3);
 //            enemyTank.setDirect(dir);
-            new Thread(enemyTank).start();//让坦克动起来
+//            new Thread(enemyTank).start();//让坦克动起来
             Bullet bullet = new Bullet(enemyTank.getX() + 16, enemyTank.getY() + 48, enemyTank.getDirect());
             enemyTank.bullets.add(bullet);
             new Thread(bullet).start();
             enemyTanks.add(enemyTank);
 
         }
-        image1 = Toolkit.getDefaultToolkit().getImage("/E:\\编程学习\\Java Learning\\JavaCode2\\src\\day_17\\image\\b1.jpg");
-        image2 = Toolkit.getDefaultToolkit().getImage("/E:\\编程学习\\Java Learning\\JavaCode2\\src\\day_17\\image\\b2.jpg");
-        image3 = Toolkit.getDefaultToolkit().getImage("/E:\\编程学习\\Java Learning\\JavaCode2\\src\\day_17\\image\\b3.jpg");
+        image1 = Toolkit.getDefaultToolkit().getImage("/E:\\Study\\Java Learning\\JavaCode2\\src\\day_17\\image\\b1.jpg");
+        image2 = Toolkit.getDefaultToolkit().getImage("/E:\\Study\\Java Learning\\JavaCode2\\src\\day_17\\image\\b2.jpg");
+        image3 = Toolkit.getDefaultToolkit().getImage("/E:\\Study\\Java Learning\\JavaCode2\\src\\day_17\\image\\b3.jpg");
     }
 
     @Override
@@ -91,7 +91,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
                 }
                 b.lifeDown();
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(80);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

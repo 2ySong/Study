@@ -64,16 +64,6 @@ CMAKE_BINARY_DIR = E:\Study\C++Learning\C++coreCode\cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"D:\Program Files (x86)\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -83,6 +73,16 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	"D:\Program Files (x86)\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -128,6 +128,69 @@ C__coreCode/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\C__coreCode.dir\build.make CMakeFiles/C__coreCode.dir/build
 .PHONY : C__coreCode/fast
 
+#=============================================================================
+# Target rules for targets named test
+
+# Build rule for target.
+test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 test
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/build
+.PHONY : test/fast
+
+#=============================================================================
+# Target rules for targets named 1.1
+
+# Build rule for target.
+1.1: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 1.1
+.PHONY : 1.1
+
+# fast build rule for target.
+1.1/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\1.1.dir\build.make CMakeFiles/1.1.dir/build
+.PHONY : 1.1/fast
+
+#=============================================================================
+# Target rules for targets named test1
+
+# Build rule for target.
+test1: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 test1
+.PHONY : test1
+
+# fast build rule for target.
+test1/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test1.dir\build.make CMakeFiles/test1.dir/build
+.PHONY : test1/fast
+
+01_memory/1.1.obj: 01_memory/1.1.cpp.obj
+.PHONY : 01_memory/1.1.obj
+
+# target to build an object file
+01_memory/1.1.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\1.1.dir\build.make CMakeFiles/1.1.dir/01_memory/1.1.cpp.obj
+.PHONY : 01_memory/1.1.cpp.obj
+
+01_memory/1.1.i: 01_memory/1.1.cpp.i
+.PHONY : 01_memory/1.1.i
+
+# target to preprocess a source file
+01_memory/1.1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\1.1.dir\build.make CMakeFiles/1.1.dir/01_memory/1.1.cpp.i
+.PHONY : 01_memory/1.1.cpp.i
+
+01_memory/1.1.s: 01_memory/1.1.cpp.s
+.PHONY : 01_memory/1.1.s
+
+# target to generate assembly for a file
+01_memory/1.1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\1.1.dir\build.make CMakeFiles/1.1.dir/01_memory/1.1.cpp.s
+.PHONY : 01_memory/1.1.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -152,6 +215,54 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\C__coreCode.dir\build.make CMakeFiles/C__coreCode.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+test.obj: test.cpp.obj
+.PHONY : test.obj
+
+# target to build an object file
+test.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test.cpp.obj
+.PHONY : test.cpp.obj
+
+test.i: test.cpp.i
+.PHONY : test.i
+
+# target to preprocess a source file
+test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test.cpp.i
+.PHONY : test.cpp.i
+
+test.s: test.cpp.s
+.PHONY : test.s
+
+# target to generate assembly for a file
+test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test.cpp.s
+.PHONY : test.cpp.s
+
+test1.obj: test1.cpp.obj
+.PHONY : test1.obj
+
+# target to build an object file
+test1.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test1.dir\build.make CMakeFiles/test1.dir/test1.cpp.obj
+.PHONY : test1.cpp.obj
+
+test1.i: test1.cpp.i
+.PHONY : test1.i
+
+# target to preprocess a source file
+test1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test1.dir\build.make CMakeFiles/test1.dir/test1.cpp.i
+.PHONY : test1.cpp.i
+
+test1.s: test1.cpp.s
+.PHONY : test1.s
+
+# target to generate assembly for a file
+test1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test1.dir\build.make CMakeFiles/test1.dir/test1.cpp.s
+.PHONY : test1.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -160,10 +271,22 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... 1.1
 	@echo ... C__coreCode
+	@echo ... test
+	@echo ... test1
+	@echo ... 01_memory/1.1.obj
+	@echo ... 01_memory/1.1.i
+	@echo ... 01_memory/1.1.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... test.obj
+	@echo ... test.i
+	@echo ... test.s
+	@echo ... test1.obj
+	@echo ... test1.i
+	@echo ... test1.s
 .PHONY : help
 
 

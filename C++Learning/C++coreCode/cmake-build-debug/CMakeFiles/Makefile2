@@ -63,6 +63,9 @@ CMAKE_BINARY_DIR = E:\Study\C++Learning\C++coreCode\cmake-build-debug
 
 # The main recursive "all" target.
 all: CMakeFiles/C__coreCode.dir/all
+all: CMakeFiles/test.dir/all
+all: CMakeFiles/1.1.dir/all
+all: CMakeFiles/test1.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,6 +74,9 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/C__coreCode.dir/clean
+clean: CMakeFiles/test.dir/clean
+clean: CMakeFiles/1.1.dir/clean
+clean: CMakeFiles/test1.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -80,7 +86,7 @@ clean: CMakeFiles/C__coreCode.dir/clean
 CMakeFiles/C__coreCode.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\C__coreCode.dir\build.make CMakeFiles/C__coreCode.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\C__coreCode.dir\build.make CMakeFiles/C__coreCode.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target C__coreCode"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles --progress-num=3,4 "Built target C__coreCode"
 .PHONY : CMakeFiles/C__coreCode.dir/all
 
 # Build rule for subdir invocation for target.
@@ -98,6 +104,84 @@ C__coreCode: CMakeFiles/C__coreCode.dir/rule
 CMakeFiles/C__coreCode.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\C__coreCode.dir\build.make CMakeFiles/C__coreCode.dir/clean
 .PHONY : CMakeFiles/C__coreCode.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test.dir
+
+# All Build rule for target.
+CMakeFiles/test.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles --progress-num=5,6 "Built target test"
+.PHONY : CMakeFiles/test.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/test.dir/rule
+
+# Convenience name for target.
+test: CMakeFiles/test.dir/rule
+.PHONY : test
+
+# clean rule for target.
+CMakeFiles/test.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/clean
+.PHONY : CMakeFiles/test.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/1.1.dir
+
+# All Build rule for target.
+CMakeFiles/1.1.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\1.1.dir\build.make CMakeFiles/1.1.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\1.1.dir\build.make CMakeFiles/1.1.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target 1.1"
+.PHONY : CMakeFiles/1.1.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/1.1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/1.1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/1.1.dir/rule
+
+# Convenience name for target.
+1.1: CMakeFiles/1.1.dir/rule
+.PHONY : 1.1
+
+# clean rule for target.
+CMakeFiles/1.1.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\1.1.dir\build.make CMakeFiles/1.1.dir/clean
+.PHONY : CMakeFiles/1.1.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test1.dir
+
+# All Build rule for target.
+CMakeFiles/test1.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test1.dir\build.make CMakeFiles/test1.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test1.dir\build.make CMakeFiles/test1.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles --progress-num=7,8 "Built target test1"
+.PHONY : CMakeFiles/test1.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/test1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Study\C++Learning\C++coreCode\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/test1.dir/rule
+
+# Convenience name for target.
+test1: CMakeFiles/test1.dir/rule
+.PHONY : test1
+
+# clean rule for target.
+CMakeFiles/test1.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test1.dir\build.make CMakeFiles/test1.dir/clean
+.PHONY : CMakeFiles/test1.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
