@@ -26,7 +26,7 @@
 
 - 单位：b/s，kb/s，Mb/s，Gb/s，Tb/s
 
-   <img src="B站(王道)--计算机网络.assets/image-20211007211307216.png" alt="image-20211007211307216" width="500" />
+   <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061942652.png" alt="image-20211007211307216" width="500" />
 
   - <!--01010 10101是10位数据，在一秒内传输完毕，所以速率就是10b/s.-->
 
@@ -173,7 +173,7 @@
 
 ### 1.2.2 OSI参考模型(1)
 
-<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110090012420.png"  alt="image-20211007234102487"  width="600" />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061942640.png"  alt="image-20211007234102487"  width="600" />
 
 **OSI参考模型(第一话)**
 
@@ -188,7 +188,7 @@
 
 - 层级图--每一层都对应一定的功能
 
-  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110090012683.png" alt="image-20211007235511639" width="500" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061942240.png" alt="image-20211007235511639" width="500" />
 
 - 上四层[7~4]是端到端的，下三层是点对点的
 
@@ -260,7 +260,7 @@
 
 - **透明传输**：指不管所传数据是什么样的比特组合，都应当能够在链路上传送
 
-  <img src="B站(王道)--计算机网络.assets/image-20211008233403368.png" alt="image-20211008233403368" width="500" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061942422.png" alt="image-20211008233403368" width="500" />
 
 - 功能：
 
@@ -274,7 +274,7 @@
 
 ### 1.2.4 TCP、IP参考模型和5层参考模型
 
- <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110090012852.png" alt="image-20211009000608574" width="700" />
+ <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061942344.png" alt="image-20211009000608574" width="700" />
 
 **OSI参考模型与TCP/IP参考模型相同点**
 
@@ -305,21 +305,19 @@
 
 - ==综合了OSI和TCP/IP的优点==
 
-  <img src="B站(王道)--计算机网络.assets/image-20211009002452446.png" alt="image-20211009002452446" width="600" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061942580.png" alt="image-20211009002452446" width="600" />
 
 - **5层参考模型的数据封装与解封装**--体系图
 
-  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110090027715.png" alt="image-20211009002740212" width="700" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061942458.png" alt="image-20211009002740212" width="700" />
 
 ### 1.3 第一章思维导图
 
-<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110090029326.png" alt="image-20211009002951960" width="600" />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061942057.png" alt="image-20211009002951960" width="600" />
 
 > 注意：自己下去将思维导图完善，掌握每一个节点的概念
 
 ----2020/10/9
-
-![image-20211009042715167](B站(王道)--计算机网络.assets/image-20211009042715167.png)
 
 ----
 
@@ -344,7 +342,7 @@
 
 为什么要数据交换？
 
-<img src="B站(王道)--计算机网络.assets/image-20211011215432180.png" alt="image-20211011215432180" width="600" />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941373.png" alt="image-20211011215432180" width="600" />
 
 **1. 电路交换**
 
@@ -352,7 +350,7 @@
 
 - 电路交换的阶段
 
-  <img src="B站(王道)--计算机网络.assets/image-20211011215832299.png" alt="image-20211011215832299" width="600" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941883.png" alt="image-20211011215832299" width="600" />
 
 - **优点：**
   
@@ -372,7 +370,7 @@
 
 - 过程
 
-  <img src="B站(王道)--计算机网络.assets/image-20211011221154898.png" alt="image-20211011221154898" width="500" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941003.png" alt="image-20211011221154898" width="500" />
 
 - 优点：
   1. ==无需建立连接==
@@ -388,7 +386,7 @@
 
 - 分组 ：把大的数据块(报文)分割成为较小的数据块。
 
-  <img src="B站(王道)--计算机网络.assets/image-20211011221730480.png" alt="image-20211011221730480" width="600" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941857.png" alt="image-20211011221730480" width="600" />
 
 - 优点：
   1. ==无需建立连接==
@@ -411,7 +409,7 @@
 
 **三种数据交换方式的比较**
 
-<img src="B站(王道)--计算机网络.assets/image-20211011223412159.png" alt="image-20211011223412159" width="600" />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061944118.png" alt="image-20211011223412159" width="600" />
 
 - 总结：
   1. **报文交换**和**分组交换**都采用了存储转发
@@ -463,7 +461,7 @@
 
 - **路由器根据分组的目的地址转发分组**：基于路由协议/算法构建转发表；检索转发表；每个分组==独立选路==。
 
-  - 转发表<img src="B站(王道)--计算机网络.assets/image-20211012090148832.png" alt="image-20211012090148832" width="300" />
+  - 转发表<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941425.png" alt="image-20211012090148832" width="300" />
 
   ------
 
@@ -508,7 +506,7 @@
 
 - 路由表/转发表
 
-<img src="B站(王道)--计算机网络.assets/image-20211012152600287.png" alt="image-20211012152600287" width="600" />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941407.png" alt="image-20211012152600287" width="600" />
 
 - 最佳路由：“最佳”只能是相对于**某一种特定要求**下得出的较为合理的选择而已。
 
@@ -546,7 +544,7 @@
 
 2. 外部网关协议EGP---AS之间使用的。BGP
 
-   <img src="B站(王道)--计算机网络.assets/image-20211012155042389.png" alt="image-20211012155042389" width="600" />
+   <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941946.png" alt="image-20211012155042389" width="600" />
 
 ## 4.3 IPV4
 
@@ -554,7 +552,7 @@
 
 **格式图**
 
-<img src="B站(王道)--计算机网络.assets/image-20211012163310686.png" alt="image-20211012163310686" width="700" />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941163.png" alt="image-20211012163310686" width="700" />
 
 - 数据报格式解析`1Byte=8bit`
 
@@ -570,7 +568,7 @@
 
   6. 协议：数据部分的协议
 
-     <img src="B站(王道)--计算机网络.assets/image-20211012163220270.png" alt="image-20211012163220270" width="700" />
+     <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941676.png" alt="image-20211012163220270" width="700" />
 
   7. 首部检验和：只检验首部。
 
@@ -587,7 +585,7 @@
 
   - 以太网的MTU是1500字节。
 
-    <img src="B站(王道)--计算机网络.assets/image-20211012164124068.png" alt="image-20211012164124068" width="500" />
+    <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941575.png" alt="image-20211012164124068" width="500" />
 
 如果所传送的数据报长度超过某链路的MTU值?--->**分片**
 
@@ -605,7 +603,7 @@
 
 - 案例
 
-  <img src="B站(王道)--计算机网络.assets/image-20211012165405112.png" alt="image-20211012165405112" width="700"/>
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941286.png" alt="image-20211012165405112" width="700"/>
   
   - 第一个分片的**片偏移**=0/8=0
   
@@ -613,7 +611,7 @@
   
   - 第二个分片的**片偏移**=2800/8=350
   
-    <img src="B站(王道)--计算机网络.assets/image-20211012165630691.png" alt="image-20211012165630691" width="600" />
+    <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941545.png" alt="image-20211012165630691" width="600" />
 
 > 注意：有几个单位容易混淆--助记：==一种8片的首饰(4)==
 >
@@ -631,27 +629,27 @@
 - P地址::={<网络号>,<主机号>}
 - **点分十进制**
 
-<img src="B站(王道)--计算机网络.assets/image-20211013175454146.png" alt="image-20211013175454146" width="500" />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941450.png" alt="image-20211013175454146" width="500" />
 
 **IP地址的分类**
 
 - A，B，C，D，E五类
 
-  <img src="B站(王道)--计算机网络.assets/image-20211013175857590.png" alt="image-20211013175857590" width="700" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941470.png" alt="image-20211013175857590" width="700" />
 
 - 特殊IP地址
 
-  <img src="B站(王道)--计算机网络.assets/image-20211013180038365.png" alt="image-20211013180038365" width="700" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941568.png" alt="image-20211013180038365" width="700" />
 
 - 私有IP地址
 
-  <img src="B站(王道)--计算机网络.assets/image-20211013180550490.png" alt="image-20211013180550490" width="500" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941312.png" alt="image-20211013180550490" width="500" />
 
   ----
 
 **常用的三种类别IP地址的使用范围**
 
-![image-20211013180808353](B站(王道)--计算机网络.assets/image-20211013180808353.png)
+![image-20211013180808353](https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941417.png)
 
 - 最大主机数减2的原因：全0(本网络)和全1(广播地址)。
 
@@ -665,7 +663,7 @@
 
 - 转换表
 
-  <img src="B站(王道)--计算机网络.assets/image-20211013191356230.png" alt="image-20211013191356230" width="500" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941390.png" alt="image-20211013191356230" width="500" />
 
   - WAN：广域网(外网)
   - LAN：局域网(内网)
@@ -680,7 +678,7 @@
 
 **子网划分**
 
- <img src="B站(王道)--计算机网络.assets/image-20211013195122800.png" alt="image-20211013195122800" width="500" />
+ <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061941114.png" alt="image-20211013195122800" width="500" />
 
 - 某单位划分子网后，==对外仍表现为一个网络==，即本单位外的网络看不见本单位内子网的划分。
 
@@ -700,7 +698,7 @@
 
 - 子网掩码与IP地址逐位相与“AND”，就得到了子网网络地址。
 
-  <img src="B站(王道)--计算机网络.assets/image-20211013200243495.png" alt="image-20211013200243495" width="500" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940363.png" alt="image-20211013200243495" width="500" />
 
 - 案例
 
@@ -732,7 +730,7 @@
 
 1. 消除了传统A，B，C类网络划分以及子网划分的概念。
 
-   <img src="B站(王道)--计算机网络.assets/image-20211014132119685.png" alt="image-20211014132119685" width="400" />
+   <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940839.png" alt="image-20211014132119685" width="400" />
 
    - 网络前缀：除主机号的位数。也就是说该地址的掩码中有20个连续1。
 
@@ -742,7 +740,7 @@
 
    - 实例：
 
-      <img src="B站(王道)--计算机网络.assets/image-20211014132905148.png" alt="image-20211014132905148" style="zoom:50%;" />
+      <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940765.png" alt="image-20211014132905148" style="zoom:50%;" />
 
      - 最小地址就是主机号全0，最大地址就是主机号全1。可以有的IP地址个数就是主机号的个数就是2^12^个。
 
@@ -829,7 +827,7 @@
 
 - 差错报文数据字段
 
-  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110201923107.png" alt="image-20211014193333188" width=450 />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940984.png" alt="image-20211014193333188" width=450 />
 
 - 不应发送CMP差错报文的情况
   1. 对**ICMP差错报告报文**不再发送CMP差错报告报文。
@@ -855,7 +853,7 @@
 
 - 思维导图
 
-  <img src="B站(王道)--计算机网络.assets/image-20211020205103099.png" alt="image-20211020205103099" width=600 />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940853.png" alt="image-20211020205103099" width=600 />
 
 **1. 解决“IP地址耗尽”的问题的三种措施：**
 
@@ -869,9 +867,9 @@
 
 **2. IPv6的数据报格式**
 
-<img src="B%E7%AB%99(%E7%8E%8B%E9%81%93)--%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.assets/image-20211020192615874.png" alt="image-20211020192615874" width=700 />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940104.png" alt="image-20211020192615874" width=700 />
 
-<img src="B%E7%AB%99(%E7%8E%8B%E9%81%93)--%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.assets/image-20211020192726727.png" alt="image-20211020192726727" width=700 />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940542.png" alt="image-20211020192726727" width=700 />
 
 **3. IPV6与IPV4的比较**
 
@@ -903,7 +901,7 @@
 
 **4. IPv6地址表示形式**
 
-<img src="B站(王道)--计算机网络.assets/image-20211020204511865.png" alt="image-20211020204511865" width=700 />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940973.png" alt="image-20211020204511865" width=700 />
 
 **5. IPv6基本地址的类型**
 
@@ -913,13 +911,13 @@ IPv6数据报的目的地址可以是以下三种基本类型地址之一：
 2)**多播**。多播是一点对多点的通信，分组被交付到一组计算机的每台计算机。
 3)**任播**。这是IPv6增加的一-种类型。任播的目的站是-组计算机，但数据报在交付时只交付其中的一台计算机，通常是距离最近的一台计算机。
 
-<img src="B站(王道)--计算机网络.assets/image-20211020204754595.png" alt="image-20211020204754595" width=600 />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061940793.png" alt="image-20211020204754595" width=600 />
 
 **6. IPV6向IPV4过滤的策略**
 
 - **IPv4向IPv6过渡可以采用`双协议栈`和`隧道技术`两种策略**:
 
-  <img src="B站(王道)--计算机网络.assets/image-20211020204919314.png" alt="image-20211020204919314" width=700 />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061939682.png" alt="image-20211020204919314" width=700 />
 
 ## 4.5 路由协议
 
