@@ -25,4 +25,3 @@ Step by step! come on, Song sir. you can
   - 操作系统（20）
   - 计算机网络（20）
 
-I love wq pig!
