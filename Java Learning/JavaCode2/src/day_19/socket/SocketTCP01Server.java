@@ -2,8 +2,10 @@ package day_19.socket;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @Author: Song-zy
@@ -27,7 +29,12 @@ public class SocketTCP01Server {
         while ((readLen = is.read(buf)) != -1) {
             System.out.println(new String(buf, 0, readLen));
         }
+        //结束接受
+        socket.shutdownInput();
+        OutputStream os = socket.getOutputStream();
+        os.write("hello,clint".getBytes(StandardCharsets.UTF_8));
         is.close();
+        os.close();
         ss.close();
         socket.close();
         System.out.println("服务端关闭");

@@ -2377,3 +2377,1288 @@ for (Object o : entrySet) {
   <img src="Java基础-第二阶段.assets/image-20211027153231249.png" alt="image-20211027153231249" width=600 />
 
   
+
+----
+
+## Day-14 泛型
+
+- generic
+
+### 0069 generic
+
+**泛型的好处**
+
+1) 编译时，检查添加元素的类型，提高了安全性
+2) 减少了类型转换的次数提高效率[说明
+   - 不使用泛型
+     - Dcg-> object->Dog//放入到 ArrayList会先转成 Object，在取出时，还需要转换成Dog
+   - 使用泛型
+     - Dog->Dog->Dog//放入时，和取出时，不需要类型转换，提高效率
+
+3) 不再提示编译警告
+
+
+
+**泛型基本介绍**
+
+int a = 10:
+
+老韩理解：泛(广泛)型(类型)=> Integer， String，Dog
+
+1) 泛型又称参数化类型，是Jdk5.0出现的新特性解决数据类型的安全性问题
+2) 在类声明或实例化时只要指定好需要的具体的类型即可。
+3) Java泛型可以保证如果程序在编译时没有发出警告，运行时就不会产生ClasscastException异常。同时，代码更加简洁、健壮
+4) 泛型的作用是:可以在类声明时通过一个标识表示类中某个属性的类型，或者是某个方法的返回值的类型，或者是参数类型。[有点难，举例 Generic03.java]
+
+**泛型的声明**
+
+```java
+interface接囗<T>{}和cass类<K,V>{}
+```
+
+比如:List， ArrayList
+
+- 说明
+  1. 其中，T、K、V不代表值，而是表示类型。
+  2. 任意字母都可以。常用T表示，是Type的的缩写
+
+- 泛型的实例化
+
+  - 要在类名后面指定类型参数的值(类型)。如
+    - List<String> stylist= new ArrayList<String>();[举例说明\
+    - Iterator<Customer> iterator= customers.iterator();
+
+**泛型使用的注意事项和细节** GenericDetail.java
+
+1. `interface List<T>， public class HashSet<E>`.等等
+   说明:T,E只能是引用类型
+
+  - 看看下面语句是否正确?
+    - `List<Integer> list = new ArrayList<Integer>();` //OK
+    - `List<int> list2 = new ArrayList<int>();` //false
+
+2. 在指定泛型具体类型后，可以传入**该类型或者其子类类型**
+3. 泛型使用形式
+   `List<Integer> list1 = new ArrayList<Integer>();`
+   `List<Integer> list2 = new ArrayList<>();`[推荐写法】
+4. 如果我们这样写 `List list3= new ArrayList();`默认绐它的泛型是【<E>,E就是`Object`]
+   即
+
+### 0070 自定义泛型类
+
+### 0071 自定义泛型接口
+
+基本语法
+
+```java
+interface 接口名<T,R,...>{}
+```
+
+注意细节
+
+1) 接口中，静态成员也不能使用泛型(这个和泛型类规定一样)
+2) 泛型接口的类型在继承接口或者实现接口时确定
+3) **没有指定类型，默认为 Object**
+
+### 0073 类型通配符
+
+1、类型通配符一般是使用 **?** 代替具体的类型参数。例如 **List<?>** 在逻辑上是 **List<String>,List<Integer>** 等所有 **List<具体类型实参>** 的父类。
+
+```java
+public class GenericTest {
+
+    public static void main(String[] args) {
+        List<String> name = new ArrayList<String>();
+        List<Integer> age = new ArrayList<Integer>();
+        List<Number> number = new ArrayList<Number>();
+
+        name.add("icon");
+        age.add(18);
+        number.add(314);
+
+        getData(name);
+        getData(age);
+        getData(number);
+
+    }
+
+    public static void getData(List<?> data) {
+        System.out.println("data :" + data.get(0));
+    }
+}
+```
+
+### 0072 自定义泛型方法
+
+基本语法
+
+```java
+修饰符 <T,R> 返回类型 方法名(参数列表){}
+```
+
+注意细节
+
+1. 泛型方法，可以定义在普通类中，也可以定义在泛型类中
+
+2. 当泛型方法被调用时，类型会识别确定
+
+3. `public void eat(E e){}`，修饰符后没有<T，R...>eat方法不是泛型方法，而是使用了泛型
+
+4. 应用案例 CustomMethodGeneric.java
+
+   ```java
+   public <T,R> void fly(T t,R r){}
+   ```
+
+   
+
+### 0073 类型通配符
+
+- 类型通配符一般是使用 **?** 代替具体的类型参数。例如 **List<?>** 在逻辑上是 **List<String>,List<Integer>** 等所有 **List<具体类型实参>** 的父类。
+
+```java
+public class GenericTest {
+
+    public static void main(String[] args) {
+        List<String> name = new ArrayList<String>();
+        List<Integer> age = new ArrayList<Integer>();
+        List<Number> number = new ArrayList<Number>();
+
+        name.add("icon");
+        age.add(18);
+        number.add(314);
+
+        getData(name);
+        getData(age);
+        getData(number);
+
+    }
+
+    public static void getData(List<?> data) {
+        System.out.println("data :" + data.get(0));
+    }
+}
+```
+
+1. 泛型没有继承性
+
+   `List< Object> list = new ArrayList< String>();`//不对
+
+2. <?>：支持任意泛型类型
+
+3. <? extends A>：支持A类以及A类的子类，规定了泛型的上限
+
+4. <? super A>：支持A类以及A类的父类，不限于直接父类，规定了泛型的下限。
+
+### 0074 JUnit
+
+1. 一个类有很多功能代码需要测试，为了测试，就需要写入到main方法中
+
+2. 如果有多个功能代码测试，就需要来回注销，切换很麻烦
+
+3. 如果可以直接运行一个方法，就方便很多，并且可以给出相关信息，就好了-> JUnit。
+
+   
+
+JUnit是一个Java语言的单元测试框架
+
+多数Java的开发环境都已经集成了JUnit作为单元测试的工具
+
+- 快捷键：@Test+AIT+ENTER(第一次)
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281517438.png" alt="image-20211028151619428" width=400 />
+
+---
+
+## Day-15 坦克大战[1]
+
+### 0075 Java绘图坐标体系
+
+- 坐标体系介绍
+
+  下图说明了Java坐标系。坐标原点位于左上角，以==像素==为单位。在Java坐标系中第个是x坐标，表示当前位置为水平方向，距离坐标原点x个像素；第二个是y坐标，表示当前位置为垂直方向，距离坐标原点y个像素。
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281517442.png" alt="image-20211028151646681" width=400 />
+
+- 坐标体系-像素
+
+  1. 绘图还必须要搞清一个非常重要的概念--像素一个像素等于多少厘米?
+
+  2. 计算机在屏幕上显示的内容都是由屏幕上的每一个像素组成的。例如，计算机显示器的==分辨率==是800×600，表示计算机屏幕上的每一行由800个点组成，共有600行。整个计算机屏幕共有480000个像素。像素是一个**密度单位**，而厘米是**长度单位**。两者无法比较
+
+     本人电脑<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281517443.png" alt="image-20211028151700217" width=100 />
+
+- java绘图技术
+
+  - 绘图原理[DrawCircle.java](https://gitee.com/song-zhangyao/study/blob/master/Java%20Learning/JavaCode2/src/day_15/draw/DrawCircle.java)
+    √ Component类提供了两个和绘图相关最重要的方法
+
+    1. paint( Graphics g)绘制组件的外观
+    2. repaint刷新组件的外观。
+
+  - 当组件第一次在屏幕显示的时候程序会自动的调用 paint().  在以下情况?paint()将会被调用
+
+    1. 窗口最小化再最大化
+    2. 窗口的大小发生变化
+    3. repaint方法被调用
+
+    √思考题：如何证明上面的三种情况会调用 paint()方法
+
+### 0076 Graphics类
+
+Graphics类你可以理解就是画笔；为我们提供了各种绘制图形的方法参考jdk帮助文档]
+
+**常用方法**[DrawGraphics.java](https://gitee.com/song-zhangyao/study/blob/master/Java%20Learning/JavaCode2/src/day_15/draw/DrawGraphics.java)
+
+1. 画直线：`drawLine(int x1,int y1,int x2,int y2)`
+2. 画矩形边框：`drawRect(int x, int y, int width, int height)`
+3. 画椭边框 ：`drawOval(int x,inty, int width, int height)`
+4. 填充矩形：`fillRect(int x,int y, int width, int height)`
+   先移忌太
+5. 填充椭圆 ：`fillOval(int x, int y, int width, int height)`
+6. 画图片：`drawImage( Image img,int x,int y…)`
+7. 画字符串:  `drawString(String str, int x, int y)`
+8. 设置画笔的字体 : `setFont( Font font)`
+9. 设置画笔的颜色 : `setColor( Color c)`
+
+### 0077 绘制坦克
+
+### 0078 事件监听器
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281517444.png" alt="image-20211028151717749" width=400 />
+
+**事件处理机制深入理解**
+
+5. 事件监听器接口
+
+   (1) 当事件源产生一个事件，可以传送给事件监听者处理
+
+   (2) 事件监听者实际上就是一个类，该类实现了某个事件监听器接口。
+
+   - 比如前面我们案例中的 My Panle就是一个类，它实现了KeyListener接口，它就可以作为一个事件监听者，对接受到的事件进行处理
+
+   (3) 事件监听器接口有多种，不同的事件监听器接口可以监听不同的事件一个类可以实现多个监听接口
+
+   (4) 这些接口在 Java.awt.event包和 javax.swing.event包中定义。
+
+   - 列出常用的事件监听器接口，查看jdk文档聚集了
+
+     <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281517445.png" alt="image-20211028151731484" width=400 />
+
+## Day-16 线程【基础】
+
+### 0079 线程相关概念
+
+- 程序( program)
+
+  是为完特定任务、用某种语言编写的一组指令的集合。
+  简单的说：就是我们写的代码
+
+- 进程
+
+  1. 进程是指运行中的程序，比如我们使用QQ，就启动了一个进程，操作系统就会为该进程分配内存空间。当我们使用迅雷，又启动了一个进程，操作系统将为迅雷分配新的内存空间。
+  2. 进程是程序的一次执行过程，或是正在运行的一个程序。是动态过程：有它自身的产生、存在和消亡的过程。
+
+- 线程
+
+  1. 线程由进程创建的，是进程的一个实体
+  2. 一个进程可以拥有多个线程
+
+- 线程分类
+
+  1. 单线程：同一个时刻，只允许执行一个线程
+  2. 多线程：同一个时刻，可以执行多个线程。比如：一个qq进程，可以同时打开多个聊天窗口；一个迅雷进程，可以同时下载多个文件。
+
+- 并行与并发
+
+  - 并发: 同一个时刻，多个任务交替执行，造成一种“貌似同时”的错觉，简单的说，单核cpu实现的多任务就是并发。
+
+    <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281822573.png" alt="image-20211028151848656" width=250 />
+
+  - 并行：同一个时刻，多个任务同时执行。多核cpu可以实现并行。
+
+### 0080 线程基本使用
+
+**创建线程的两种方式**
+
+- 在java中线程来使用有两种方法
+
+  1. 继承 Thread类，重写run方法
+
+  2. 实现 Runnable接口，重写run方法
+
+     <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281822575.png" alt="image-20211028152555751" width=300 />
+
+- 线程应用案例1--继承 Thread类
+  Thread01.java
+
+  1. 请编写程序开启一个线程，该线程毎嗝1秒。在控制台输岀“喵喵，我是小猫咪“
+
+  2. 对上题改进：当输出8次喵喵，我是小猫咪，结束该线程
+
+  3. 使用 JConsole监控线程执行情况，并画出程序示意图!
+
+     ```java
+     public class Thread01 {
+         public static void main(String[] args) {
+             Cat cat = new Cat();
+             cat.start();//启动线程
+     //        cat.run();
+         }
+     }
+     
+     //继承了Thread，该类就是一个线程类
+     class Cat extends Thread {
+         @Override
+         public void run() {
+             int n = 0;
+             while (true) {
+                 System.out.println("喵喵，我是小猫咪" + (++n));
+                 //让该线程休眠1秒
+                 try {
+                     Thread.sleep(2000);//间隔两秒输出一次
+                 } catch (InterruptedException e) {
+                     e.printStackTrace();
+                 }
+                 if(n==8){
+                     break;//结束线程
+                 }
+             }
+         }
+     }
+     ```
+
+     - 进程图
+
+       <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281822576.png" alt="image-20211028160002221" width=400/>
+
+     - 为什么调用start，就开启了线程？
+
+       <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281822577.png" alt="image-20211028160420672" width=600 />
+
+       - 真正实现多线程的是start0方法，而不是run
+
+     - 线程
+
+       <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281822578.png" alt="image-20211028160933116" width=600 />
+
+- 线程应用案例2--实现 Runnable接口
+
+  说明[Thread02.java](https://gitee.com/song-zhangyao/study/blob/master/Java%20Learning/JavaCode2/src/day_16/thread/Thread02.java)
+
+  - java是单继承的，在某些情况下一个类可能已经继承了某个父类，这时再用继承Thread类方法来创建线程显然不可能了。
+
+  - java设计者们提供了另外一个方式创建线程，就是通过实现 Runnable接囗来创建线程
+
+    ```java
+    Dog dog = new Dog();
+    Thread thread = new Thread(dog);
+    thread.start();
+    ```
+
+    
+
+- 在main线程中创建两个子线程[Thread03.java](https://gitee.com/song-zhangyao/study/blob/master/Java%20Learning/JavaCode2/src/day_16/thread/Thread03.java)
+
+  ```java
+  Thread thread1 = new Thread(t1);thread1.start();Thread thread2 = new Thread(t2);thread2.start();
+  ```
+
+   <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110281822579.png" alt="image-20211028164531749"  width=300 />
+
+**继承 Thread vs实现 Runnable[推荐]的区别**
+
+1. 从java的设计来看，通过继承 Thread或者实现 Runnable接口来创建线程**本质上没有区别**，从jdk帮助文档我们可以看到 Thread类本身就实现了Runnable接口
+2. 实现 Runnable接口方式更加适合**多个线程共享一个资源**的情况，并且避免了==单继承的限制==。
+
+**模拟售票系统**
+
+- [售票系统]，编程模拟三个售票窗口售票100张。分别使用继承 Thread和实现 Runnable方式。并分析有什么问题? SellTicket. java
+
+**线程终止**
+基本说明
+
+1. 当线程完成任务后，会自动退出。
+
+2. 还可以通过使用变量来控制run方法退出的方式停止线程，即通知方式。
+
+   ----
+
+### 0081 线程方法
+
+**常用方法第一组**
+
+1. setName/设置线程名称，使之与参数name相同
+2. getName/回该线程的名称
+3. start/使该线程开始执行;Java虚拟机底层调用该线程的 start0方法
+4. run/调用线程对象run方法
+5. setPriority//更改线程的优先级
+6. getPriority/取线程的优先级
+7. sleep/在指定的毫秒数内让当前正在执行的线程休眠(暂停执行)
+8. interrupt/中断线程
+
+- 注意事项和细节
+  1. start底层会创建新的线程，调用run，run就是一个简单的方法调用，不会启动新线程
+  2. 线程优先级的范围
+  3. interrupt，中断线程，但并没有真正的结束线程。所以一般用于中断正在休眠线程
+  4. sleep:线程的静态方法，使当前线程休眠
+
+**常用方法第二组**[ThreadMethod2.java](https://gitee.com/song-zhangyao/study/blob/master/Java%20Learning/JavaCode2/src/day_16/thread/ThreadMethod2.java)
+
+1. yield：线程的礼让。让出cpu，让其他线程执行，但礼让的时向不确定，所以也不一定礼让成功
+
+2. join：线程的插队。插队的线程一旦插队成功，则肯定先执行完插入的线程所有的任务。
+
+   案例：创建一个子线程，每隔1s输出 hello，输出20次，主线程每隔1秒，辅出hi，输出20次要求：两个线
+   程同时执行，当主线程输出5次后，就让子线程运行完毕，主线程再继续
+
+**用户线程和守护线程**
+
+1. 用户线程：也叫工作线程。当线程的任务执行完或通知方式结束
+
+2. 守护线程：一般是为工作线程服务的，当所有的用户线程结束，守护线程自动结束
+
+   - 例：当main线程结束时，子线程不再执行；ThreadMethod3.java
+
+     ```java
+     T5 t5 = new T5();t5.setDaemon(true);t5.start();
+     ```
+
+- 常见的守护线程：垃圾回收机制
+
+---
+
+### 0082 线程的7大状态
+
+- JDK中用 `Thread.State`枚举表示了线程的几种状态
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110301703034.png" alt="image-20211030151047396" width=400 />
+
+#### 线程的生命周期
+
+- 线程状态转换图
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110301703036.png" alt="image-20211030152208024" width=700/>
+
+- 案例[ThreadState.java](https://gitee.com/song-zhangyao/study/blob/master/Java%20Learning/JavaCode2/src/day_16/thread/ThreadState_.java)
+
+  ```java
+          System.out.println(thread.getName() + "的状态是" + thread.getState());
+  ```
+
+  - 运行结果
+
+    <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110301703038.png" alt="image-20211030153103160" width=300 />
+
+### 0083 线程同步
+
+#### 1. 线程同步机制**Synchronized**
+
+1. 在多线程编程，一些敏感数据不允许被多个线程同时访问，此时就使用同步访问技术，保证数据在任何时刻，==最多只有一个线程访问==，以保证数据的完整性。
+2. 也可以这里理解：线程同步，即当有一个线程在对内存进行操作时，其他线程都不可以对这个内存地址进行操作，直到该线程完成操作，其他线程才能对该内存地址进行操作
+   - 案例：防止多个窗口售票时，发生超卖的问题
+
+同步具体方法 Synchronized
+
+1. 同步代码块
+
+   ```java
+   synchronized(对象){/得到对象的锁，才能操作同步代码    /需要被同步代码;}
+   ```
+
+   
+
+2. synchronized还可以放在方法声明中，表示整个方法--为同步方法
+
+  ```java
+public synchronized void m(String name){    /需要被同步的代码;}
+  ```
+
+3. 案例：售票问题[SellTicket03.java](https://gitee.com/song-zhangyao/study/blob/master/Java%20Learning/JavaCode2/src/day_16/syn/Test.java)
+
+#### 2. 互斥锁
+
+- 基本介绍
+
+  1. Java在Jav语言中，引入了**对象互斥锁**的概念，来保证**共享数据操作的完整性**。
+
+  2. 每个对象都对应于一个可称为“互斥锁”的标记，这个标记用来保证在任一时刻，**只能有一个线程访向该对象**。
+
+  3. 关键字 `synchronized`来与对象的互斥锁联系。当某个对象用 synchronized修饰时，表明**该对象在任一时刻只能由一个线程访问**。
+
+  4. 同步的**局限性**：导致程序的**执行效率降低**
+
+  5. 同步方法==(非静态的)==的锁可以是this，也可以是其他对象(要求是同一个对象)
+
+  6. 同步方法==(静态的)==的锁为**当前类本身**。
+
+     <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110301703039.png" alt="image-20211030170331438" width=500 />
+
+     - 多个线程的锁对象必须为同一个
+
+#### 3. 线程死锁
+
+**介绍**
+
+- 多个线程都占用了对方的锁资源，但不肯相让，导致了死锁。在编程中一定要避免死锁的发生。
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202110310003131.png" alt="image-20211030171735450" width=500 />
+
+#### 4. 释放锁
+
+- 下面操作会释放锁
+
+  1. 当前线程的同步方法、同步代码块执行结束
+     案例:上厕所，完事出来
+  2. 当前线程在同步代码块、同步方法中遇到 break、 return
+     案例:没有正常的完事，经理叫他修改bug，不得已出来
+  3. 当前线程在同步代码块、同步方法中出现了未处理的Error或 Exception，导致异常结束
+     案例:没有正常的完事，发现忘带纸，不得已出来
+  4. 当前线程在同步代码块、同步方法中执行了线程对象的wait0方法，当前线程暂停，并释放锁。
+     案例:没有正常完事，觉得需要酝酿下，所以出来等会再进去
+
+- 下面操作不会释放锁
+
+  1. 线程执行同步代码块或同步方法时，程序调用 Thread. sleep()、 Thread.yield()方法暂停当前线程的执行，不会释放锁。
+
+     案例:上厕所，太困了，在坑位上眯了一会
+
+  2. 线程执行同步代码块时，其他线程调用了该线程的 suspend方法将该线程挂起该线程不会释放锁。
+
+     提示：应尽量避免使用 suspend()和 resume()来控制线程，**方法不再推荐使用**
+
+     ----
+
+## Day-17 坦克大战[2]
+
+> 坦克大战3.0版本
+
+获取图片
+
+```java
+    Image image1 = Toolkit.getDefaultToolkit().getImage("image/b1.jpg");  
+Image image2 = Toolkit.getDefaultToolkit().getImage("image/b2.jpg");  
+Image image3 = Toolkit.getDefaultToolkit().getImage("image/b3.jpg");
+```
+
+---
+
+## Day-18 I/O流
+
+### 0084 文件
+
+**什么是文件**
+
+- 文件对我们并不陌生，==文件是保存数据的地方==，比如大家经常使用的word文档txt。exce文件.都是文件。它既可以保存一张图片也可以保持视频声音。
+
+**文件流**
+
+- 文件在程序中是以==流==的形式来操作的
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061419362.png" alt="image-20211106141842326" width=300 />
+
+- 流：数据在数据源(文件)和程序(内存)之间经历的路径
+
+- 输入流：数据从数据源(文件)到程序(內存)的路径
+
+- 输出流：数据从程序(內存)到数据源(文件)的路径
+
+**创建文件**
+
+常用的文件操作
+
+- 创建文件对象相关构造器和方法
+  相关方法
+
+  1. `new File( String pathname)`//根据路径构建一个File对象
+  2. `new File( File parent, String child)`//很据父目录文件+子路径构建
+  3. `new file( String parent, String child)`//根据父目录+子路径构建
+
+- 代码：
+
+  ```java
+  //01
+  @Test
+  public void creat01() {  
+      String filePath = "E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\test_file\\creat01.txt";  
+      File file = new File(filePath);   
+      try {    
+          file.createNewFile(); 	
+          System.out.println("文件1创建成功");   
+      } catch (IOException e) {  
+          e.printStackTrace();   
+      }
+  }
+  //方式2
+  @Test
+  public void creat02(){   
+      File parent = new File("E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\test_file\\");  
+      String child  = "creat02.txt";   
+      File file = new File(parent,child);  
+      try {     
+          file.createNewFile();   
+          System.out.println("文件2创建成功");   
+      } catch (IOException e) {  
+          e.printStackTrace();   
+      }
+  }
+  //方式3:推荐使用
+  @Test
+  public void creat03(){  
+      String parent = "E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\test_file\\";   
+      String child  = "creat03.txt"; 
+      File file = new File(parent,child);  
+      try {       
+          file.createNewFile();  
+          System.out.println("文件3创建成功"); 
+      } catch (IOException e) {       
+          e.printStackTrace(); 
+      }
+  }
+  ```
+  
+  - 结果：<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061528850.png" alt="image-20211106143909760" width=200 />
+
+**获取文件信息**：
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061528851.png" alt="image-20211106144437987"  width=300/>
+
+- FileInformation.java
+
+  ```java
+  //创建文件
+  File file = new File("E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\test_file\\test1.txt");
+  try {   
+      file.createNewFile();
+  } catch (IOException e) {   
+      e.printStackTrace();
+  }
+  System.out.println("文件名："+file.getName());
+  System.out.println("绝对路径："+file.getAbsolutePath());
+  System.out.println("文件父目录："+file.getParent());
+  System.out.println("文件大小(字节)："+file.length());
+  System.out.println("文件是否存在："+file.exists());
+  System.out.println("是不是一个文件："+file.isFile());
+  System.out.println("是不是一个目录："+file.isDirectory());
+  ```
+  
+  - 结果：<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061528852.png" alt="image-20211106145915452" style="zoom: 50%;" />
+
+**目录的操作和文件删除**
+
+> 在java中，目录也被当做是一种文件。
+
+- mkdir(boolean)创建一级目录、 
+
+- mkdirs(boolean)创建多级目录、
+
+- delete(boolean)删除空目录或文件
+
+  ```java
+      @Test    
+  public void m1(){   
+      String filePath = "E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\test_file\\test1.txt";   
+      File file = new File(filePath);      
+      if(file.exists()) {     
+          if(file.delete()) {     
+              System.out.println("删除成功");  
+          }else{           
+              System.out.println("删除失败");       
+          }    
+      }else{ 
+          System.out.println("该文件不存在");    
+      }   
+  } 
+  @Test   
+  public void m2(){    
+      String filePath = "E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\test_file\\test";  
+      File file = new File(filePath);     
+      if(file.exists()) {     
+          if(file.delete()) {       
+              System.out.println("删除成功");   
+          }else{         
+              System.out.println("删除失败");  
+          }      
+      }else{     
+          System.out.println("该文件目录不存在");     
+      }  
+  } 
+  @Test   
+  public void m3(){     
+      String filePath = "E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\test_file\\test"; 
+      File file = new File(filePath);  
+      if(file.exists()) {         
+          System.out.println("目录存在");     
+      }else{        
+          file.mkdirs();         
+          System.out.println("目录创建成功");     
+      }   
+  }
+  ```
+  
+  
+
+---
+
+### 0085 IO流原理及流的分类
+
+**Java IO流原理**
+
+1. I/O是 Input/ Output的缩写，I/O技术是非常实用的技术，用于处理数据传输。
+   如读/写文件，网络通讯等
+
+2. Java程序中，对于数据的输入/输出操作以”流( stream)"的方式进行。
+
+3. java.io包下提供了各种“流”类和接口，用以获取不同种类的数据，并通过方法输入或输出数据
+
+4. 输入 input：读取外部数据(磁盘、光盘等存储设备的数据)到程序(内存)中。
+
+5. 输出 output：将程序(内存数据输出到磁盘、光盘等存储设备中
+
+   <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061528853.png" alt="image-20211106152513242" style="zoom:35%;" />
+
+**流的分类**
+
+- 按**操作数据单位**不同分为：字节流(8bit)，字符流(按字符)
+
+- 按**数据流的流向**不同分为：输入流，输出流
+
+- 按**流的角色**的不同分为：节点流，处理流/包装流
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111061528854.png" alt="image-20211106152648834" style="zoom:45%;" />
+
+1. Java的IO流共涉及40多个类，实际上非常规则，都是从如上4个==抽象基类派生==的
+2. 由这四个类派生出来的子类名称都是以其父类名作为子类名后缀
+
+- IO流体系图
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111071406030.png" alt="image-20211106153635912" style="zoom:50%;" />
+
+
+
+#### 1 **Inputstream:字节输入流**
+
+Inputstrean抽象类是所有类字节输入流的超类
+
+- Inputstrean常用的子类
+
+  - FilelnputStream:文件输入流
+  - BufferedInputStream:缓冲字节输入流
+  - ObjectInputStream:对象字节输入流
+
+- FilelnputStream:字节输入流
+
+- [API文档](https://www.apiref.com/java11-zh/java.base/java/io/FileInputStream.html)
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111071406031.png" alt="image-20211106155325631" style="zoom:50%;" />
+
+  - 代码演示：[FilelnputStream_.java](https://github.com/Zhy-Song/Study/blob/main/Java%20Learning/JavaCode2/src/day_18/InputStream/FileInputStream_.java)
+
+#### 2 FileOutStream：字节输出流
+
+| 构造器                                          | 描述                                                         |
+| :---------------------------------------------- | :----------------------------------------------------------- |
+| `FileOutputStream(File file)`                   | 创建文件输出流以写入由指定的 `File`对象表示的文件。          |
+| `FileOutputStream(FileDescriptor fdObj)`        | 创建要写入指定文件描述符的文件输出流，该文件描述符表示与文件系统中实际文件的现有连接。 |
+| `FileOutputStream(File file, boolean append)`   | 创建文件输出流以写入由指定的 `File`对象表示的文件。          |
+| `FileOutputStream(String name)`                 | 创建文件输出流以写入具有指定名称的文件。==（会覆盖原来的内容）== |
+| `FileOutputStream(String name, boolean append)` | 创建文件输出流以写入具有指定名称的文件。==（为true时，不会覆盖原来的内容--追加）== |
+
+- 示例
+
+  ```java
+  outF = new FileOutputStream(filePath);//1. 会覆盖原来的内容outF = new FileOutputStream(filePath,true);//2. 不会覆盖原来的内容，追加
+  ```
+
+  
+
+- 常用方法
+
+  | 变量和类型       | 方法                                | 描述                                                         |
+  | :--------------- | :---------------------------------- | :----------------------------------------------------------- |
+  | `void`           | `close()`                           | 关闭此文件输出流并释放与此流关联的所有系统资源。             |
+  | `protected void` | `finalize()`                        | **不推荐使用，要删除：此API元素将在以后的版本中删除。**`finalize`方法已被弃用，将被删除。 |
+  | `FileChannel`    | `getChannel()`                      | 返回与此文件输出流关联的唯一[`FileChannel`](https://www.apiref.com/java11-zh/java.base/java/nio/channels/FileChannel.html)对象。 |
+  | `FileDescriptor` | `getFD()`                           | 返回与此流关联的文件描述符。                                 |
+  | `void`           | `write(byte[] b)`==最重要==         | 将指定字节数组中的 `b.length`字节写入此文件输出流。          |
+  | `void`           | `write(byte[] b, int off, int len)` | 将从偏移量 `off`开始的指定字节数组中的 `len`字节写入此文件输出流。 |
+  | `void`           | `write(int b)`                      | 将指定的字节写入此文件输出流。                               |
+
+- 案例代码：[FileOutputStream_.java](https://github.com/Zhy-Song/Study/blob/main/Java%20Learning/JavaCode2/src/day_18/outputstream/FileOutputStream_.java)
+
+- 图片拷贝的案例
+
+  ```java
+  public class FileCopy { 
+      public static void main(String[] args) {    
+          String srcPath = "E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\头像.jpg";      
+          String destPath = "E:\\Study\\Java Learning\\JavaCode2\\src\\day_18\\test_file\\头像副本.jpg";  
+          FileInputStream fileIn = null;   
+          FileOutputStream fileOut = null;  
+          try {       
+              fileIn = new FileInputStream(srcPath);   
+              fileOut = new FileOutputStream(destPath);       
+              //定义一个字节数组，提高读取xiaol    
+              byte[] bs = new byte[1024];    
+              int readLen = 0;          
+              while ((readLen = fileIn.read(bs)) != -1) {   
+                  fileOut.write(bs, 0, readLen);//输出流    
+              }         
+              System.out.println("拷贝完成");    
+          } catch (IOException e) {         
+              e.printStackTrace();     
+          } finally {        
+              try {            
+              if(fileIn != null){    
+                  fileIn.close();        
+              }          
+                  if(fileOut!=null){       
+                      fileOut.close();      
+                  }     
+              } catch (IOException e) {         
+                  e.printStackTrace();    
+              }      
+          }   
+      }
+  }
+  
+  ```
+  
+  
+
+#### 3 **FileReader和FileWriter**
+
+FileReader 和FileWriter是==字符流==，即按照字符来操作io
+
+- 类图
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111071406032.png" alt="image-20211107140645977" width=250 /><img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111071841437.png" alt="image-20211107141555638" width=300 />
+
+- **FileReader相关方法：**[FileReaderDemo.java](https://github.com/Zhy-Song/Study/blob/main/Java%20Learning/JavaCode2/src/day_18/reader_writer/FileReaderDemo.java)
+
+  1. `new FileReader(File/String)`
+  2. `read()`：每次读取单个字符，返回该字符，如果到文件未尾返回-1
+  3. `read(char[])`：批量读取多个字符到数组，返回读取到的字符数，如果到文件未尾返回-1
+
+  **相关API:**
+
+  1. `new String(char[])`：将char[]转换成String
+  2. `new String(char[],off,len)`：将char[]的指定部分转换成String.
+
+- **FileWriter常用方法:** [FileWriterDemo.java](https://github.com/Zhy-Song/Study/blob/main/Java%20Learning/JavaCode2/src/day_18/reader_writer/FileWriterDemo.java)
+
+  1. `new FileWriter(File/String)`：==覆盖模式==，相当于流的指针在首端
+  2. `new FileWriter(File/String，true)`：==追加模式==，相当于流的指针在尾端
+  3. `write(int)`：写入单个字符
+  4. `write(char[])`：写入指定数组
+  5. `write(char[], off, len)`：写入指定数组的指定部分
+  6. `write(string)`：写入整个字符串
+  7. `write(string, off, len)`：写入字符串的指定部分
+
+  **相关API:**  String类：==toCharArray( )==：将String转换成char[]
+
+  > 注意：FileWriter使用后，==必须要关闭（close）或刷新（flush）==，否则写入不到指定的文件！
+
+#### **4 字节流和处理流**
+
+**流分类总览**
+
+![image-20211107152023177](https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111071841441.png)
+
+表格
+
+|    分类    |      字节输入流      |      字节输出流       |    字符输入流     |     字符输出流     |   流类型   |
+| :--------: | :------------------: | :-------------------: | :---------------: | :----------------: | :--------: |
+|  抽象基类  |     InputStraem      |     OutputStream      |      Reader       |       Writer       |   节点流   |
+|  访问文件  |  `FileInputStream`   |  `FileOutputStream`   |   `FileReader`    |    `FileWriter`    |   节点流   |
+|  访问数组  | ByteArrayInputStraem | ByteArrayOutputStream |  CharArrayReader  |  CharArrayWriter   |   节点流   |
+|  访问管道  |   PipedInputStraem   |   PipedOutputStream   |    PipedReader    |    PipedWriter     |   节点流   |
+| 访问字符串 |                      |                       |   StringReader    |    StringWriter    | ==节点流== |
+|            |                      |                       |                   |                    |            |
+|   缓冲流   | BufferedInputStraem  | BufferedOutputStream  |  BufferedReader   |   BufferedWriter   | ==处理流== |
+|   转换流   |                      |                       | InputStreamReader | OutputStreamWriter |   处理流   |
+|   对象流   |  ObjectInputStraem   |  ObjectOutputStream   |                   |                    |   处理流   |
+|  抽象基类  |  FilterInputStraem   |  FilterOutputStream   |   FilterReader    |    FilterWriter    |   处理流   |
+|   打印流   |                      |      PrintStream      |                   |    PrintWriter     |   处理流   |
+| 推回输入流 | PushbackInputStraem  |                       |  PushbackReader   |                    |   处理流   |
+|   特殊流   |   DataInputStraem    |   DataOutputStream    |                   |                    |   处理流   |
+
+**基本介绍**：
+
+1. 节点流可以从一个特定的数据源==读写数据==，如`FileReader、FileWriter`。
+
+2. 处理流（也叫==包装流==）是“连接”在已存在的流（节点流或处理流）之上，为程序提供更为强大的读写功能，
+
+   如`BufferedReader、BufferedWriter`。
+
+
+**节点流和处理流的区别和联系**
+
+1. 节点流是底层流/低级流，直接跟数据源相接
+2. 处理流（==包装流==）包装节点流，既可以消除不同节点流的实现差异，也可以提供更方便的方法来完成输入输出。[源码理解]
+3. 处理流（也叫包装流）对节点流进行包装，使用了修饰器设计模式，不会直接与数据源相连【模拟修饰器设计模式】
+
+**处理流的功能主要体现在以下两个方面**
+
+1. 性能的提高：主要以增加缓冲的方式来提高输入输出的效率
+2. 操作的便捷：处理流可能提供了一系列便捷的方法来一次输入输出大批量的数据，使用更加灵活方便
+
+#### 5 BufferedReader、BufferedWriter
+
+- 它们属于字符流，是按照==字符==来读取数据的-->尽量读取==文本文件==时使用，不要去读取二进制文件(音视频文件)。
+- 关闭时，只需要关闭外层流即可。
+
+案例：
+
+1. 使用BufferedReader读取==文本文件==，并显示在控制台
+
+   ```java
+   buf = new BufferedReader(new FileReader(filePath));
+   //按行读取
+   String line;
+   while ((line = buf.readLine()) != null) {
+       //当读取完毕时，返回null 
+       System.out.println(line);
+   }
+   ```
+
+2. 使用BufferedWriter将“hello，琪琪子”，写入到文件中。
+
+   ```java
+   BufferedWriter buf = null;buf = new BufferedWriter(new FileWriter(filePath,true));
+   //true追加
+   String str1 = "hello，琪琪子";
+   //注意换行符
+   buf.write(str1);
+   buf.newLine();//插入一个和系统相关的换行符
+   String str2 = "hello，Jack";
+   buf.write(str2);
+   buf.newLine();
+   //插入一个和系统相关的换行符
+   buf.flush();
+   ```
+
+3. 复制一个文本文件: 将copySrc.txt里面的文本拷贝到copyDest.txt
+
+   ```java
+   public class BufferedCopy {
+       public static void main(String[] args) throws IOException {
+           String srcPath = "E:\\copySrc.txt";
+           String destPath = "E:\\copyDest.txt";
+           BufferedReader srcTxt = new BufferedReader(new FileReader(srcPath));
+           BufferedWriter destTxt = new BufferedWriter(new FileWriter(destPath));
+           String line;
+           while ((line = srcTxt.readLine()) != null){
+               destTxt.write(line);
+               destTxt.newLine();
+           }
+           System.out.println("文本复制完毕！");
+           srcTxt.close();
+           destTxt.close();
+       }
+   }
+   ```
+
+#### 6 BufferedInputStream和BufferedOutputStream
+
+> 弥补了BufferedReader、BufferedWriter不能读取==二进制文件==的缺陷。但是也可以处理文本文件，只是效率低
+
+- BufferedlnputStream是字节流，在创建BufferedlnputStream时，会创建一个==内部缓冲区数组==。
+
+- 类关系图
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111091414564.png" alt="image-20211107195506348" width=300/>
+
+  - 构造方法
+
+    | 构造器                                          | 描述                                                         |
+    | :---------------------------------------------- | :----------------------------------------------------------- |
+    | `BufferedInputStream(InputStream in)`           | 创建一个 `BufferedInputStream`并保存其参数，即输入流 `in` ，供以后使用。 |
+    | `BufferedInputStream(InputStream in, int size)` | 创建具有==指定缓冲区大小==的 `BufferedInputStream` ，并保存其参数（输入流 `in` ）供以后使用。 |
+
+  - 方法摘要
+
+    | 变量和类型 | 方法                               | 描述                                                         |
+    | :--------- | :--------------------------------- | :----------------------------------------------------------- |
+    | `int`      | `available()`                      | 返回可以从此输入流中读取（或跳过）的字节数的估计值，而不会被下一次调用此输入流的方法阻塞。 |
+    | `void`     | `close()`                          | 关闭此输入流并释放与该流关联的所有系统资源。                 |
+    | `void`     | `mark(int readlimit)`              | 参见 `mark`方法 `InputStream`的总合同。                      |
+    | `boolean`  | `markSupported()`                  | 测试此输入流是否支持 `mark`和 `reset`方法。                  |
+    | `int`      | `read()`                           | 参见 `read`方法 `InputStream`的总合同。                      |
+    | `int`      | `read(byte[] b, int off, int len)` | 从给定的偏移量开始，将此字节输入流中的字节读入指定的字节数组。 |
+    | `void`     | `reset()`                          | 参见 `reset`方法 `InputStream`的总合同。                     |
+    | `long`     | `skip(long n)`                     | 见的总承包 `skip`的方法 `InputStream` 。                     |
+
+- 案例：完成图片，音视频文件的拷贝。
+
+  ```java
+  public class BufferedStreamCopy {
+      public static void main(String[] args) {
+          String srcPath = "E:\\头像.jpg";
+          String destPath = "E:\\头像副本.jpg";
+          BufferedInputStream srcJpg = null;
+          BufferedOutputStream destJpg = null;
+  
+          try {
+              srcJpg = new BufferedInputStream(new FileInputStream(srcPath));
+              destJpg = new BufferedOutputStream(new FileOutputStream(destPath));
+              int readLen;
+              byte[] buf = new byte[1024];
+              while ((readLen = srcJpg.read(buf)) != -1) {//读完，返回-1
+                  destJpg.write(buf, 0, readLen);
+              }
+              System.out.println("拷贝成功");
+          } catch (IOException e) {
+              e.printStackTrace();
+          } finally {
+              try {
+                  srcJpg.close();//只需要关闭外层流
+                  destJpg.close();
+              } catch (IOException e) {
+                  e.printStackTrace();
+              }
+          }
+      }
+  }
+  ```
+
+  
+
+#### 7 对象流 Object
+
+对象流-ObiectlnputStream和ObjectOutputStream
+
+1. 看一个需求
+
+   将`int num=100`这个int数据保存到文件中，注意不是100数字，而是int 100，并且，能够从文件中直接**恢复**int 100
+
+2. 将`Dog dog =new Dog("小黄",  3)`这个dog对象保存到文件中，并且能够从文件恢复。
+
+3. 上面的要求，就是能够将==基本数据类型或者对象==进行==序列化和反序列化==操作
+
+**序列化和反序列化**
+
+1. **序列化**就是在保存数据时，保存数据的值和==数据类型==
+2. **反序列化**就是在恢复数据时，恢复数据的值和==数据类型==
+3. 需要让某个对象支持序列化机制，则必须让其类是可序列化的，为了让某个类是可序列化的，该类必须实现如下两个接口之一：
+   - `Serializable`//这是一个==标记接口==--推荐
+   - `Externalizable`
+4. `ObiectOutputStream`提供序列化，`ObjectInputStream`提供反序列化功能
+
+案例：
+
+1. 存放一些信息到data.dat文件中，并序列化
+
+   ```java
+   public class ObjectOutStreamDemo {
+       public static void main(String[] args) throws IOException {
+           String filePath = "E:\\data.dat";
+           ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath));
+           //序列化到文件data.dat.  包装类实现了Serializable接口
+           oos.write(100);
+           oos.writeChar('a');
+           oos.writeBoolean(true);
+           oos.writeDouble(100.67);
+           oos.writeUTF("宋章耀");//存放字符串
+           //保存一个Dog对象
+           oos.writeObject(new Dog("Jack",67));
+           oos.close();
+       }
+   }
+   //必须实现Serializable接口
+   class Dog implements Serializable {
+       private String name;
+       private int age;
+   
+       public Dog(String name, int age) {
+           this.name = name;
+           this.age = age;
+       }
+       
+       @Override
+       public String toString() {
+           return "Dog{" +
+                   "name='" + name + '\'' +
+                   ", age=" + age +
+                   '}';
+       }
+   }
+   ```
+
+2. 反序列化。回复数据类型，或者引用的具体对象类型
+
+   注意：读取(反序列化)的顺序要和存放(序列化)的顺序保持一致
+
+   ```java
+   public class ObjectInputStreamDemo {
+       public static void main(String[] args) throws Exception {
+           String filePath = "E:\\data.dat";
+           ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath));
+   
+           //注意：读取(反序列化)的顺序要和存放(序列化)的顺序保持一致
+           System.out.println(ois.readInt());
+           System.out.println(ois.readChar());
+           System.out.println(ois.readBoolean());
+           System.out.println(ois.readDouble());
+           System.out.println(ois.readUTF());
+           Object o = ois.readObject();
+           System.out.println(o.getClass());
+           System.out.println(o);
+           //我们要调用Dog类的方法，需要向下转型
+           Dog dog = (Dog)o;
+           System.out.println(dog.getName());
+           dog.run();
+           ois.close();
+       }
+   }
+   
+   ```
+
+   - 输出结果：<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111091744541.png" alt="image-20211109141944793" width=200 />
+
+- 注意事项：
+  1. 读写顺序要一致
+  2. 要求实现序列化或反序列化对象，需要实现Serializable
+  3. 序列化的类中建议添加SerialVersionUID，为了提高版本的兼容性
+  4. 序列化对象时，默认将里面所有属性都进行序列化，但除了static或transient修饰的成员
+  5. 序列化对象时，要求里面属性的类型也需要实现序列化接口
+  6. 序列化具备可继承性，也就是如果某类已经实现了序列化，则它的所有子类也已经默认实现了序列化
+
+#### 8 标准输入输出流
+
+**基本介绍**
+
+|            |    类型    | 默认设备 |
+| :--------: | :--------: | :------: |
+| System.in  | 标准准输入 |   键盘   |
+| System.out |  标准输出  |  显示器  |
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111091744542.png" alt="image-20211109143507057" width=600 />
+
+#### 9 转换流
+
+InputStreamReader 和OutputStreamWriter
+
+主要用于乱码转换。
+
+**转换流-InputStreamReader和OutputStreamWriter**
+
+- 介绍
+
+  1. InputstreamReader:Reader的子类，可以将Inputstream（字节流）包装成Reader（字符流）
+
+  2. OutputStreamWriter:Writer的子类，实现将OutputStream（字节流）包装成Writer（字符流）
+
+  3. 当处理纯文本数据时，如果使用字符流效率更高，并且可以有效解决中文问题，所以建议将字节流转换成字符流
+
+  4. 可以在使用时指定编码格式（比如utf-8.gbk，gb2312，IS08859-1等
+
+      <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111091744543.png" alt="image-20211109144555851" style="zoom:40%;" />
+
+     - 最重要的构造器：InputStreamReader(inputStream，Charset）。Charset可以指定字符编码
+
+- 案例：
+
+  - 演示使用工 InputStreamReader转换流解决中文码问题：将字芳流 FileInputStream转成字符流 InputStreamReader,指定编码gbk/utf-8
+
+    ```java
+    String filePath = "E:\\a.txt";
+    InputStreamReader isr = new InputStreamReader(new FileInputStream(filePath), "UTF-8");
+    //传入BufferedReader
+    BufferedReader br = new BufferedReader(isr);
+    //读取
+    String line = br.readLine();
+    System.out.println(line);
+    //关闭外层流
+    br.close();
+    ```
+
+  - 演示OutputStreamWriter把FileOutputStream字节流，转成字符流OutputStreamWriter
+    指定处理的编码gbk/utf-8。
+
+    ```java
+    String filePath = "E:\\b.txt";
+    OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(filePath),"utf-8");
+    osw.write("琪琪子，你说hello,world");
+    osw.close();
+    ```
+
+#### 10 打印流PrintStream(字节流)、PrintWriter(字符流)
+
+- PrintStream
+
+  ```java
+  PrintStream ps = System.out;
+  ps.println("hello,world");//默认打印到显示器
+  ps.write("hhh".getBytes()); //println方法底层也是调用的write
+  //改变打印的位置
+  System.setOut(new PrintStream("E:\\a.txt"));
+  System.out.println("hello，琪琪子，你说猪");//在文件a.txt中
+  ps.close();
+  ```
+
+- PrintWriter
+
+  ```java
+  PrintWriter pw = new PrintWriter(new FileWriter("E:\\\a.txt"));
+  pw.println("你好，北京");//在文件a.txt中
+  pw.write("你好，中国");
+  pw.close();
+  ```
+
+### 0086 Properties类
+
+基本介绍
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111091744544.png" alt="image-20211109155736599" style="zoom:50%;" />
+
+- 专门用于读写配置文件的集合类
+  配置文件的格式：
+  键=值
+  键-值
+- 注意：键值对不需要有空格，值不需要用引号一起来。默认类型是String
+
+常用方法
+
+1. load：加载配置文件的键值对到Properties对象
+
+2. list:将数据显示到指定设备
+
+3. getProperty（key）:根据==键==获取值
+
+4. setProperty（key, value）:设置键值对到Properties对象
+
+5. store:将Properties中的键值对存储到配置文件，在idea中，保存信息到配置文件，如果含有中文，会存储为unicode码。
+
+   [unicode码查询](http://tool.chinaz.com/tools/unicode.aspx)
+
+案例：
+
+- 读取：
+
+  ```java
+  Properties properties = new Properties();
+  //加载指定配置文件
+  String filePath = "src/day_18/properties/mysql.properties";
+  properties.load(new FileReader(filePath));
+  //把k-v显示在控制台
+  properties.list(System.out);
+  //更具key获取值
+  String user = properties.getProperty("user");
+  String ip = properties.getProperty("ip");
+  String pwd = properties.getProperty("pwd");
+  System.out.println("用户名："+user);
+  System.out.println("密码："+pwd);
+  ```
+
+- 创建、修改
+
+  ```java
+  Properties pps = new Properties();
+  pps.setProperty("charset","utf-8");
+  pps.setProperty("user","宋");
+  pps.setProperty("pwd","8784szy");
+  pps.store(new FileWriter("src/day_18/properties/mysql2.properties"),null);
+  ```
+
+  - null处，可以写评论，即注释。
