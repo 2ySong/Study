@@ -957,4 +957,3 @@
 - 对于∑*中的任何字α，若存在一条从初态到某一终态的道路，且这条路上所有弧上的标记符连接成的字等于∑，则称∑为DFA M所识别(接收)
   - DFA M所识别的字的全体记为L(M)
 
-![image-20211101214053595](C:/Users/szy/AppData/Roaming/Typora/typora-user-images/image-20211101214053595.png)
