@@ -874,7 +874,41 @@ SELECT FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y/%m/%d %H:%i:%s');
 
 ### 0106 表的查询
 
-#### 1 查询增强--多表
+#### 1 查询增强--group by
 
+1. 显示每种岗位的雇员总数、平均工资。
 
+   ```mysql
+   SELECT COUNT(*) AS num_emp , FORMAT(avg(sal), 2) AS avg_sal, job
+   FROM emp
+   GROUP BY job;
+   ```
+
+2. 显示庭员总数，以及获得补助的雇员数。
+
+   ```mysql
+   SELECT COUNT(*) AS num_emp, COUNT(comm)
+   FROM emp;
+   ```
+
+   - 如果行(comm)为空，则count不会统计
+
+3. 显示管理者的总人数
+
+   ```mysql
+   SELECT COUNT(*) AS MANAGER_num
+   FROM emp
+   WHERE job = 'MANAGER';
+   ```
+
+4. 薪水差额
+
+   ```mysql
+   SELECT MAX(sal)-MIN(sal)
+   FROM emp
+   ```
+
+- 如果语句中同时出现GROP BY; HAVING ;ORDER BY ; LIMIT,一定要严格按照这个顺序执行，否则会报错。
+
+#### 2 多表查询
 

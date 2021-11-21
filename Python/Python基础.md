@@ -1379,6 +1379,8 @@ dict['Age']:  7
 
 如果用字典里没有的, 将会报错
 
+`value = dict.get(key)` 
+
 ---
 
 #### 4 修改字典
@@ -1401,6 +1403,10 @@ dict['School']:  菜鸟教程
 ```
 
 #### 5 删除字典元素
+
+dict.pop(key)：删除key对应的元素，返回的是value。
+
+dirt.popitem()：从后删除，返回的是(key:value)的元组
 
 能删单一的元素也能清空字典，清空只需一项操作。
 
@@ -1449,15 +1455,24 @@ Python字典包含了以下内置方法：
 
 | 序号 | 函数及描述                                                   |
 | :--- | :----------------------------------------------------------- |
-| 1    | [radiansdict.clear()](https://www.runoob.com/python3/python3-att-dictionary-clear.html) 删除字典内所有元素 |
+| 1    | `radiansdict.clear()`删除字典内所有元素                      |
 | 2    | [radiansdict.copy()](https://www.runoob.com/python3/python3-att-dictionary-copy.html) 返回一个字典的浅复制 |
 | 3    | [radiansdict.fromkeys()](https://www.runoob.com/python3/python3-att-dictionary-fromkeys.html) 创建一个新字典，以序列seq中元素做字典的键，val为字典所有键对应的初始值 |
 | 4    | [radiansdict.get(key, default=None)](https://www.runoob.com/python3/python3-att-dictionary-get.html) 返回指定键的值，如果键不在字典中返回 default 设置的默认值 |
-| 5    | [key in dict](https://www.runoob.com/python3/python3-att-dictionary-in.html) 如果键在字典dict里返回true，否则返回false |
-| 6    | [radiansdict.items()](https://www.runoob.com/python3/python3-att-dictionary-items.html) 以列表返回一个视图对象 |
-| 7    | [radiansdict.keys()](https://www.runoob.com/python3/python3-att-dictionary-keys.html) 返回一个视图对象 |
+| 5    | `key in dict`如果键在字典dict里返回true，否则返回false       |
+| 6    | `radiansdict.items()`以列表返回一个视图对象(将列表的每对(key:value)表示为一个元组，所有的键值对组成一个列表) |
+| 7    | `radiansdict.keys()`返回一个视图对象(==将所有的key都放在一个列表里面==) |
 | 8    | [radiansdict.setdefault(key, default=None)](https://www.runoob.com/python3/python3-att-dictionary-setdefault.html) 和get()类似, 但如果键不存在于字典中，将会添加键并将值设为default |
-| 9    | [radiansdict.update(dict2)](https://www.runoob.com/python3/python3-att-dictionary-update.html) 把字典dict2的键/值对更新到dict里 |
-| 10   | [radiansdict.values()](https://www.runoob.com/python3/python3-att-dictionary-values.html) 返回一个视图对象 |
-| 11   | [pop(key[,default\])](https://www.runoob.com/python3/python3-att-dictionary-pop.html) 删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值。 |
-| 12   | [popitem()](https://www.runoob.com/python3/python3-att-dictionary-popitem.html) 随机返回并删除字典中的最后一对键和值。 |
+| 9    | [radiansdict.update(dict2)](https://www.runoob.com/python3/python3-att-dictionary-update.html) 把字典dict2的键/值对更新到dict里；字典的合并 |
+| 10   | [radiansdict.values()](https://www.runoob.com/python3/python3-att-dictionary-values.html) 返回一个视图对象(==将所有的value都放在一个列表里面==) |
+| 11   | `pop(key[,default])`删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值。 |
+| 12   | `popitem()`随机返回并删除字典中的最后一对键和值。            |
+
+- 取出所有键值对
+
+  ```python
+  for k,v in dict.items:
+      print(k,v)
+  ```
+
+  
