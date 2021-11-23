@@ -788,7 +788,7 @@ FROM emp;
 
 #### 6 日期函数
 
-![image-20211114132320687](C:/Users/szy/AppData/Roaming/Typora/typora-user-images/image-20211114132320687.png)
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111211416708.png" alt="image-20211114132320687" style="zoom: 33%;" />
 
 案例：
 
@@ -848,7 +848,7 @@ SELECT FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y/%m/%d %H:%i:%s');
 
 #### 7 加密函数
 
-![image-20211114141325484](C:/Users/szy/AppData/Roaming/Typora/typora-user-images/image-20211114141325484.png)
+![image-20211114141325484](https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111211416712.png)
 
 - 案例
 
@@ -868,7 +868,7 @@ SELECT FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y/%m/%d %H:%i:%s');
 
 #### 8 流程控制函数
 
-<img src="C:/Users/szy/AppData/Roaming/Typora/typora-user-images/image-20211117080807485.png" alt="image-20211117080807485" style="zoom:45%;" />
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111211416713.png" alt="image-20211117080807485" style="zoom:45%;" />
 
 ---
 
@@ -912,3 +912,216 @@ SELECT FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y/%m/%d %H:%i:%s');
 
 #### 2 多表查询
 
+注意：多表查询的条件不能少于表的个数，不然会出现笛卡尔积
+
+实例：
+
+1. 如何显示部门号为10的部门名、员工名和工资
+
+   ```mysql
+   SELECT ename,sal,dname,emp.deptno
+   FROM emp,
+        dept
+   WHERE dept.deptno =emp.deptno AND dept.deptno=10;
+   ```
+
+   <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111231547016.png" alt="image-20211123144358637" style="zoom:45%;" />
+
+2. 显示各个员工的姓名、工资、及其工资级别；按照工资级别升序排列
+
+   ```mysql
+   SELECT ename,sal,grade
+   FROM emp,salgrade
+   WHERE sal BETWEEN losal AND hisal
+   ORDER BY grade
+   ```
+
+3. 显示雇员名、雇员工资及其所在部门的名字，并按部门降序
+
+   ```mysql
+   SELECT ename,sal,dname
+   FROM emp,dept
+   WHERE emp.deptno=dept.deptno
+   ORDER BY dept.deptno;
+   ```
+
+---
+
+#### 3 自连接
+
+自连接是指在同一张表的连接查询【将一张表看作两张表】
+
+```mysql
+SELECT e1.ename AS '职员',e2.ename AS '上级'
+FROM emp e1,emp e2
+WHERE e1.mgr = e2.empno
+ORDER BY e1.empno
+```
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111231547018.png" alt="image-20211123153456008" style="zoom:40%;" />
+
+#### 4 子查询
+
+在SELECT语句中嵌套SELECT
+
+**单行子查询：**
+
+- 案列：如何显示和SMITH同一个部门的所有员工
+
+```mysql
+SELECT ename,deptno
+FROM emp
+WHERE deptno = (
+    SELECT deptno
+    FROM emp
+    WHERE ename = 'SMITH')
+```
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111231547019.png" alt="image-20211123154702974" style="zoom:40%;" />
+
+**多行子查询**：
+
+课堂练习：如何查询和部门10的工作相同的雇员的名字、岗位、工资、部门号，但是不含10号部门自己的雇员，
+
+```mysql
+SELECT ename, job, sal, deptno
+FROM emp
+WHERE job IN (SELECT DISTINCT job
+              FROM emp
+              WHERE deptno = 10)
+  AND deptno != 10;
+```
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111231919836.png" alt="image-20211123160054007" style="zoom:40%;" />
+
+**子查询临时表**
+
+将子查询的结果当作一张临时表
+
+```mysql
+SELECT goods_id, ecs_goods.cat_id, goods_name, shop_price
+FROM (
+         SELECT cat_id, MAX(shop_price) AS max_price
+         FROM ecs_goods
+         GROUP BY cat_id) temp,
+     ecs_goods
+WHERE ecs_goods.cat_id = temp.cat_id
+  AND temp.max_price = ecs_goods.shop_price;
+```
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111231919838.png" alt="image-20211123163254988" style="zoom:45%;" />
+
+**ALL和ANY**：
+
+显示工资比部门30的所有员工的工资高的员工的姓名、工资和部门号.
+
+```mysql
+SELECT ename, sal, deptno
+FROM emp
+WHERE sal > ALL (SELECT sal
+                 FROM emp
+                 WHERE deptno = 30)
+```
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111231919839.png" alt="image-20211123164024735" style="zoom:50%;" />
+
+显示工资比部门30的其中一个员工的工资高的员工的姓名、工资和部门号
+
+```mysql
+SELECT ename, sal, deptno
+FROM emp
+WHERE sal > ALL (SELECT sal
+                 FROM emp
+                 WHERE deptno = 30)
+```
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111231919840.png" alt="image-20211123164058257" style="zoom:50%;" />
+
+- 案例：请查询和赵云数学，英语，语文。完全相同的学生
+
+  ```mysql
+  #方式1
+  SELECT student.name, student.chinese, student.math, student.english
+  FROM (
+           SELECT chinese, math, english
+           FROM student
+           WHERE name = '赵云'
+       ) zy,
+       student
+  WHERE student.chinese = zy.chinese
+    AND student.math = zy.math
+    AND student.english = zy.english;
+  #方式2
+  SELECT *
+  FROM student
+  WHERE (chinese, math, english) = (
+      SELECT chinese, math, english
+      FROM student
+      WHERE name = '赵云'
+  );
+  ```
+
+  
+
+- 查询每个部门的信息（包括：部门名，编号，地址）和人员数量
+
+  ```mysql
+  SELECT dept.*, count_emp AS '部门人数'
+  FROM dept,
+       (SELECT COUNT(*) AS count_emp, deptno
+        FROM emp
+        GROUP BY deptno
+       ) temp
+  WHERE dept.deptno = temp.deptno
+  ```
+
+  <img src="C:/Users/szy/AppData/Roaming/Typora/typora-user-images/image-20211123202524599.png" alt="image-20211123202524599" style="zoom:50%;" />
+
+#### 5 表的复制
+
+从别的表复制内容到新的表
+
+```mysql
+CREATE TABLE my_t1
+(
+    id     INT,
+    name   VARCHAR(32),
+    sal    DOUBLE,
+    job    VARCHAR(32),
+    deptno INT
+);
+
+INSERT INTO my_t1
+SELECT empno, ename, sal, job, deptno
+FROM emp;
+```
+
+自我复制：
+
+```mysql
+INSERT INTO my_t1
+SELECT*
+	FROM my_t1;
+```
+
+创建相同结构(列相同)的表：
+
+```mysql
+CREATE TABLE my_t2 LIKE my_t1;
+```
+
+- 注意：只复制了列，没有复制内容。
+
+#### 6 表的去重
+
+```mysql
+INSERT INTO news2
+    (SELECT DISTINCT*
+     FROM news);
+```
+
+#### 7 合并查询--UNION
+
+该操作符用于取得两个结果集的并集。当使用该操作符时，不会取消重复行。
+
+0781
