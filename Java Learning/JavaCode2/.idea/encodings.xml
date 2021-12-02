@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/95921122-1f0b-4041-aceb-1cc30ec870b2/创建学生表.sql" charset="UTF-8" />
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src/day_18/test_file/a.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/day_18/test_file/b.txt" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

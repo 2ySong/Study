@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小说排行榜</title>
+    <style>
+        table {
+            width: 500px;
+            height: 300px;
+        }
+
+        table, tr, th, td {
+            border: 1px solid black;
+            margin: 1px;
+            /*将相邻的单元格合并*/
+            border-collapse: collapse;
+            text-align: center;
+            /*color: green;*/
+        }
+
+        .red {
+            /*width: 100px;*/
+            font-size: 20px;
+            color: red;
+        }
+
+        .green {
+            font-size: 20px;
+            color: green;
+        }
+
+        .thr {
+            height: 45px;
+            font: 22px '华文楷体', serif;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr class="thr">
+        <th>排名</th>
+        <th>关键词</th>
+        <th>趋势</th>
+        <th>今日搜索</th>
+        <th>最近七日</th>
+        <th>相关信息</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>鬼吹灯</td>
+        <td class="green">⇩</td>
+        <td>345</td>
+        <td>678</td>
+        <td><a href="https://baike.baidu.com/item/%E9%AC%BC%E5%90%B9%E7%81%AF/10790?fr=aladdin">百科</a></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>盗墓笔记</td>
+        <td class="green">⇩</td>
+        <td>567</td>
+        <td>34</td>
+        <td><a href="#">百科</a></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>西游记</td>
+        <td class="red">⇧</td>
+        <td>45</td>
+        <td>678</td>
+        <td><a href="#">百科</a></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>斗破苍穹</td>
+        <td class="red">⇧</td>
+        <td>845</td>
+        <td>98</td>
+        <td><a href="#">百科</a></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>伏天氏</td>
+        <td class="green">⇩</td>
+        <td>645</td>
+        <td>88</td>
+        <td><a href="#">百科</a></td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>水浒传</td>
+        <td class="green">⇩</td>
+        <td>45</td>
+        <td>78</td>
+        <td><a href="#">百科</a></td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>三国演义</td>
+        <td class="green">⇩</td>
+        <td>35</td>
+        <td>978</td>
+        <td><a href="#">百科</a></td>
+    </tr>
+    </tbody>
+
+</table>
+</body>
+</html>

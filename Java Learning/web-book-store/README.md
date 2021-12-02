@@ -1,0 +1,1 @@
+"jdbc:mysql://localhost:3306/shop?user=root&password=8784szy2810&characterEncoding=gb2312&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"

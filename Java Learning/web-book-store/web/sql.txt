@@ -1,0 +1,7 @@
+数据库连接
+ String uri="jdbc:mysql://127.0.0.1:3306/shop?"+
+                             "user=root&password=123456&characterEncoding=gb2312";
+     
+
+HandleRegister
+INSERT INTO user VALUES (?,?,?,?,?)

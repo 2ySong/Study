@@ -1,0 +1,15 @@
+body {
+    text-align: center;
+}
+
+h2 {
+    font-family: '华文楷体', serif;
+}
+
+ol li a {
+    color: red;
+}
+
+ul > li {
+    color: red;
+}

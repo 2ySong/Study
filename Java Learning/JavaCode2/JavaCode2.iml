@@ -26,12 +26,11 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/jdbc/mysql-connector-java-5.1.37-bin.jar!/" />
+          <root url="jar://D:/Program Files (x86)/mysql-connect-java/mysql-connector-java-8.0.16.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jdbc" level="project" />
   </component>
 </module>

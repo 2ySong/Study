@@ -1075,7 +1075,7 @@ WHERE sal > ALL (SELECT sal
   WHERE dept.deptno = temp.deptno
   ```
 
-  <img src="C:/Users/szy/AppData/Roaming/Typora/typora-user-images/image-20211123202524599.png" alt="image-20211123202524599" style="zoom:50%;" />
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111240013853.png" alt="image-20211123202524599" style="zoom:50%;" />
 
 #### 5 表的复制
 
@@ -1124,4 +1124,779 @@ INSERT INTO news2
 
 该操作符用于取得两个结果集的并集。当使用该操作符时，不会取消重复行。
 
-0781
+---
+
+### 0107  外连接
+
+左外连接
+
+```mysql
+#1. 使用左连接(显示所有人的成绩，如果没有成绩，也要显示该人的姓名和id，成绩显示为空)
+SELECT stu.id, name, grade
+FROM stu
+         LEFT JOIN exam ON stu.id = exam.id
+```
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111240013857.png" alt="image-20211123232100605" style="zoom:46%;" />
+
+右外连接：
+
+ 即：右边的表与左边的表没有匹配的记录，也会把右表的记录显示出来，左表匹配值为NULL
+
+```mysql
+#2. 使用右连接(显示所有人的成绩，如果没有名字匹配，显示为空)
+SELECT stu.id, name, grade
+FROM stu
+         RIGHT JOIN exam ON stu.id = exam.id;
+```
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111240013858.png" alt="image-20211123232438285" style="zoom:50%;" />
+
+练习：
+
+```mysql
+# 列出部门名称和这些部门的员工信息(名字和工作),同时列出出那些没有员工的部门名。
+# 1. 左外连接
+SELECT dname, ename, job
+FROM dept
+         LEFT JOIN emp ON emp.deptno = dept.deptno;
+# 2. 右外连接
+SELECT dname, ename, job
+FROM emp
+         RIGHT JOIN dept ON emp.deptno = dept.deptno
+```
+
+---
+
+### 0108 Mysql约束
+
+**基本介绍**：
+
+- 约束用于确保数据库的数据满足特定的商业规则。
+
+- 在mysqI中，约束包括: not null、unique, primary key, foreign key, 和check 五种。
+
+#### 1 primary key**主键注意细节：**
+
+1. 主键字段的值不能重复且非空
+2. 一张表最多只能有一个主键，但是可以是复合主键：`primary key(id+name)`
+3. 主键的指定方式有两种
+   - 直接在字段名后指定：字段名 primary key
+   - 在表定义最后写：primary key(列名);
+4. 使用desc 表名，可以看到primary key的情况
+5. 在实际开发中，每个表都会有一个主键。
+
+#### 2 not null、unique
+
+not null：
+
+- 如果在列上定义了not null，那么当插入数据时，必须为该列提供值。
+
+unique：
+
+- 当定义了唯一约束后，该列值是不能重复的。
+- 注意细节：
+  - 如果没有定义not null，则unique字段可以有多个null
+  - 一张表可以有多个unique字段。
+
+#### 3 外键
+
+用于定义主表和从表之间的关系：外键约束要定义在从表上，主表必须具有主键约束或是unique约束，当定义外键约束后，要求外键列数据必在主表的主键列存在或是为null 。
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111240013859.png" alt="image-20211124000245459" style="zoom:50%;" />
+
+#### 4 check
+
+用于强制行数据必须满足的条件，假定在sal列上定义了 check约束并要求sal列值在1000\~2000之间如果不再1000~2000之间就会提示出错。
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111240013860.png" alt="image-20211124000510097" style="zoom:50%;" />
+
+注意：
+
+```mysql
+CREATE TABLE t1
+(
+    id   INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    sex  VARCHAR(6)   NOT NULL CHECK (sex IN ('men', 'women')) DEFAULT 'men',
+    sal  DOUBLE CHECK (sal BETWEEN 1000 AND 5000)
+);
+```
+
+- 在mysq中实现 check的功能，一般是在程序中控制，或者通过触发器完成。
+
+**练习：商店表的设计**
+
+数据库：shop_db
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111281724536.png" alt="image-20211128140555565" style="zoom:45%;" />
+
+- 示例代码：
+
+  ```mysql
+  CREATE TABLE goods
+  (
+      good_id    INT PRIMARY KEY,
+      good_name  VARCHAR(64) NOT NULL DEFAULT '未知商品',
+      unit_price DOUBLE      NOT NULL DEFAULT 0
+          CHECK ( unit_price BETWEEN 1.0 AND 9999.99 ),
+      category   INT         NOT NULL DEFAULT 0,
+      provider   VARCHAR(64) NOT NULL DEFAULT '未知供应商'
+  );-- 商品表
+  CREATE TABLE customer
+  (
+      customer_id INT PRIMARY KEY,
+      NAME        VARCHAR(64) NOT NULL DEFAULT '未知客户',
+      address     VARCHAR(64),
+      email       VARCHAR(64) UNIQUE,
+      sex         VARCHAR(5)  NOT NULL DEFAULT ('男')
+          CHECK ( sex IN ('男', '女') ),
+      card_id     VARCHAR(18) UNIQUE
+  );-- 客户表
+  CREATE TABLE purchase
+  (
+      order_id    INT PRIMARY KEY,
+      customer_id INT NOT NULL DEFAULT 0,
+      good_id     INT NOT NULL DEFAULT 0,
+      nums        INT NOT NULL DEFAULT 1,
+      FOREIGN KEY (customer_id) REFERENCES customer (customer_id),
+      FOREIGN KEY (good_id) REFERENCES goods (good_id)
+  );-- purchase购买表
+  
+  DESC goods;
+  DESC customer;
+  DESC purchase;
+  ```
+
+  
+
+#### 5 自增长
+
+自增长格式
+
+```mysql
+field_name INT PRIMARY KEY auto_increment
+```
+
+数据类型是整型就行。
+
+![image-20211128145255693](https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111281724539.png)
+
+**自增长使用细节**
+
+- 一般来说自增长是和 primary key配合使用的
+
+- 自增长也可以单独使用[但是需要配合一个 unique]
+
+- 自增长修饰的字段为整数型的(虽然小数也可以但是非常非常少）
+
+- 这样使用自增长默认从1开始，你也可以通过如下命令修改 
+
+  ```mysql
+  alter table table_name auto_increment = 新的开始值;
+  ```
+
+- 如果你添加数据时，给自增长字段(列)指定的有值，则以指定的值为准。
+
+---
+
+### 0109 Mysql索引
+
+提升数据库性能：空间换时间
+
+创建索引：`field`表示要创建的索引的字段，以后就根据这个字段查询，就会非常快。
+
+```mysql
+CREATE INDEX field_index ON table_name(field)
+```
+
+原理：
+
+- 当没有索引时，每一次查询都会==全表扫描==
+- 当建立索引后，会建立一个二叉树。
+
+索引代价：
+
+- 占用磁盘空间
+- 对dml(update delete insert)语句的效率影响
+
+**1 创建索引**
+
+> 注意：如果一个字段是主键或者unique约束，那么它就是一个索引。
+
+索引的类型
+
+1. 主键索引，==主键自动的为主索引==（类型Primary key）
+2. 唯一索引（UNIQUE）
+3. 普通索引（INDEX）
+4. 全文索引（FULLTEXT）：[适用于MyISAM]
+   开发中考虑使用：全文搜索Solr和ElasticSearch（ES）
+
+
+
+查询一个表的索引字段：`SHOW INDEXES FROM table_name`
+
+创建索引的方式：
+
+1. 方式一：
+
+   ```mysql
+   CREATE INDEX name_index ON stu (name);
+   ```
+
+2. 方式二：
+
+   ```mysql
+   ALTER TABLE stu
+       ADD INDEX name_index (name)
+   ```
+
+   
+
+**2 删除索引**：
+
+删除普通索引。
+
+```mysql
+DROP INDEX name_index ON stu
+```
+
+删除自己创建的主键索引
+
+```mysql
+ALTER TABLE stu DROP PRIMARY KEY;
+```
+
+**3 修改索引**
+
+1. 先删除
+2. 重新创建索引
+
+**4 查询索引**
+
+```mysql
+SHOW INDEXES FROM stu;
+```
+
+```mysql
+SHOW KEYS FROM stu
+```
+
+**小结：哪些列上适合使用素引**
+
+- 较频繁的作为查询条件字段应该创建索引
+
+  ```mysql
+  select * from emp where empno=1
+  ```
+
+- 唯一性大差的字段不适合单独创建索引，即使频繁作为查询条件
+
+  ```mysql
+  select * from emp where sex=男
+  ```
+
+- 更新非常频繁的字段不适合创建索引
+
+  ```mysql
+  select * from emp
+  where logincount =1
+  ```
+
+- 不会出现在WHERE子句中字段不该创建索引.
+
+---
+
+### 0110 MySQL的事务
+
+**什么是事务**
+
+- 事务用于保证数据的一致性，==它由一组相关的dml语句组合==，该组的dml语句要么全部成功，要么全部失败。
+- 如：转账就要用事务来处理，用以保证数据的一致性。
+
+**事务和锁**
+
+- 当执行事务操作时（dml语句），mysql会在表上加锁，防止其它用户改表的数据这对用户来讲是非常重要的
+
+**数据库控制台事务的几个重要操作（基本操**
+
+- start transaction--开始一个事务
+- savepoint 保存点名--设置保存点
+- rollback to 保存点名--回退事务
+- rollback--回退全部事务
+- commit--提交事务，所有的操作生效，不能回退
+
+```mysql
+CREATE TABLE IF NOT EXISTS t1
+(
+    id   INT,
+    name VARCHAR(255)
+);
+DESC t1;
+SELECT *
+FROM t1;
+START TRANSACTION; #开始事务
+SAVEPOINT a; #设置保存点a
+INSERT INTO t1
+VALUES (1, '小明');
+SAVEPOINT b; #设置保存点b
+INSERT INTO t1
+VALUES (1, '大黄'); #插入数据
+COMMIT;
+rollback to b; #回退到b
+```
+
+- **回退事务**：
+
+  在介绍回退事务前，先介绍一下保存点（savepoint），保存点是事务中的点，用于取消部分事务
+
+  当结束事务时（commit），会自动的删除该事务所定义的所有保存点。
+
+  当执行回退事务时，通过指定保存点可以回退到指定的点。这里我们作图说明。
+
+- 提交事务
+
+  使用commit语句可以提交事务，当执行了commit语句子后会确认事务的变化、结束事务、删除保存点、释放锁，数据生效。
+
+  当使用commit语句结束事务子后，其它会话将可以查看到事务变化后的新数据。
+
+**事务细节：**
+
+- 如果不开始事务，默认情况下，dml操作是自动提交的，不能回滚。
+- 如果开始一个事务，你没有创建保存点，你可以执行rollback，默认就是回退到你事务开始的状态
+- 你也可以在这个事务中（还没有提交时），创建多个保存点比如：savepoint aaa；执行dml，savepoint bbb；
+- 你可以在事务没有提交前，选择回退到哪个保存点
+- mysql的事务机制需要innodb的存储引擎还可以使用，myisam不好使
+- 开始一个事务`start transaction`，`set autocommit=off`。
+
+**事务的隔离级别**：
+
+- 多个连接开启各自事务操作数据库中数据时，数据库系统要负责隔离操作，以保证各个连接在获取数据时的准确性。（通俗解释）
+- 如果不考虑隔离性，可能会引发如下问题：脏读，不可重复读，幻读。
+  - **脏读**（dirty read）：当一个事务读取另一个事务尚未提交的修改时，产生脏读。
+  - **不可重复读**（nonrepeatable read）：同一查询在同一事务中多次进行，由于其他提交事务所做的修改或删除，每次返回不同的结果集，此时发生不可重复读。
+  - **幻读**（phantom read）：同一查询在同一事务中多次进行，由于其他提交事务所做的插入操作，每次返回不同的结果集，此时发生幻读。
+
+![image-20211128173928305](https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111281950925.png)
+
+修改隔离级别：`SET SESSION TRANSACTION ISOLATION LEVEL` 
+
+```mysql
+SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+```
+
+查看当前隔离级别
+
+```mysql
+SELECT @@transaction_isolation
+```
+
+查看系统当前隔离级别
+
+```mysql
+SELECT @@global.transaction_isolation;
+```
+
+设置当前会话隔离级别
+
+```mysql
+SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+```
+
+查看系统前隔离级别
+
+```mysql
+SET GLOBAL TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+```
+
+---
+
+**事务的acid特性**
+
+1. 原子性(Atomicity）
+
+   原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生
+
+2. 一致性（Consistency）
+
+   事务必须使数据库从一个一致性状态变换到另外一个一致性状态
+
+3. 隔离性（isolation）
+
+   事务的隔离性是多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被基他事务的操作数据所干扰，多个并发事务之间要相互隔离。
+
+4. 持久性（Durability）
+
+   持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的。接下来即使数据库发生故障也不应该对其有任何影响
+
+### 0111 mysql存储引擎
+
+**基本介绍**
+
+- MySQL的表类型由存储引擎（Storage Engines）决定，主要包括MyISAM、innoDB、Memory等。
+
+- MySQL数据表主要支持六种类型，分别是：CSV、ARCHIVE，Memory、MRG，MYISAM、InnoBDB。
+
+- 这六种又分为两类，一类是”事务安全型”（transaction-safe），InnoDB；其余都属于第二类，称为”“非事务安全型”（non-transaction-safe）[mysiam和memory]
+
+- 查看所有的存储引擎：`SHOW ENGINES`
+
+  <img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202111281949387.png" alt="image-20211128185426612" style="zoom:36%;" />
+
+如何选择存储引擎
+
+---
+
+### 0112 MySQL视图(view)
+
+基本概念
+
+- 视图是一个虚拟表，其内容由查询定义。同真实的表一样，视图包含列，==其数据来自对应的真实表==（基表）
+- 视图和基表关系的示意图
+- 通过视图可以修改基表的数据
+- 基表的改变，视图也会随之改变
+
+视图的基本使用：
+
+1. create view 视图名 as select语句--创建
+
+   ```mysql
+   CREATE VIEW stu_view AS
+   SELECT id, name
+   FROM stu;
+   ```
+
+2. alter view 视图名 as select语句--修改
+
+3. SHOW CREATE VIEW  视图名
+
+4. drop view 视图名1,视图名2..
+
+**视图最佳实践**
+
+1. **安全**。一些数据表有着重要的信息。有些字段是保密的，不能让用户直接看到。这时就可以创建一个视图，在这张视图中只保留一部分字段。这样，用户就可以查询自己需要的字段，不能查看保密的字段。
+2. **性能**。关系数据库的数据常常会分表存储，使用外键建立这些表的之间关系。这时数据库查询通常会用到连接（JOIN）。这样做不但麻烦，效率相对也比较低。如果建立一个视图，将相关的表和字段组合在一起，就可以避免使用JOIN查询数据。
+3. **灵活**。如果系统中有一张旧的表，这张表由于设计 的问题，即将被废弃。然而，很多应用都是基于这张表，不易修改。这时就可以建立一张视图，视图中的数据直接映射到新建的表。这样，就可以少做很多改动，也达到了升级数据表的目的。
+
+---
+
+### 0113 MySQL用户管理
+
+MySQL中的用户，都存储在系统数据库mysql中user表中
+
+其中user表的重要字段说明：
+
+1. host：允许登录的“位置”，localhost表示该用户只允许本机登录，也可以指定ip地址，比如：192.168.1.100
+2. user：用户名；
+3. authentication_string：密码，是通过mysql的password()函数加密之后的密码。
+
+新建一个用户
+
+```mysql
+CREATE USER 'szy_wq'@localhost IDENTIFIED BY '000000'
+```
+
+删除用户
+
+```mysql
+DROP USER 'szy_wq'@localhost
+```
+
+修改自己的密码：
+
+```mysql
+SET PASSWORD = PASSWORD ('123456')
+```
+
+---
+
+**给用户授权**：
+
+基本语法：
+
+- grant 权限列表 on `*.*` to '用户名'@'登陆位置'  【identified by '密码'】
+
+说明：
+
+1. 权限列表，多个权限用逗号分开
+
+   grant select on ....
+
+   grant select，delete，create on...
+
+   grant all【privileges】on...//表示赋予该用户在该对象上的所有权限
+
+2. 特别说明
+
+   `*.*`：代表本系统中的所有数据库的所有对象（表，视图，存储过程）
+   库.*：表示某个数据库中的所有数据对象（表，视图，存储过程等
+
+3. identified by可以省略，也可以写出
+
+   （1）如果用户存在，就是修改该用户的密码。
+
+   （2）如果该用户不存在，就是创建该用户！
+
+**回收权限：**
+
+- 基本语法：revoke 权限列表 on 库.对象名 from 用户名"@“登录位置；
+
+- 权限生数指令
+
+  如果权限没有生效，可以执行下面命令刷新：FLUSH PRIVILEGES:
+
+**注意事项：**
+
+- 在创建用户的时候，如果不指定Host则为%，%表示表示所有IP都有连接权限
+
+- create user xxx.你也可以这样指定create user 'xxx'@'192.168.1.%'，%表示XX用户在192.168.1.*的Ip可以登录mysql
+
+- 在删除用户的时候，如果host不是%，需要明确指定'用户'@"host值"
+
+---
+
+## Day-23 JDBC和连接池
+
+### 0114 JDBC
+
+JDBC API是一系列的接口，它统一和规范了应用程序与数据库的连接、执行SQL语句，并到得到返回结果等各类操作，相关类和接口在java.sql与javax.sql包中
+
+<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202112022059685.png" alt="image-20211128221829039" style="zoom:50%;" />
+
+连接代码
+
+```java 
+package day_22.sql_demo;
+
+
+import com.mysql.jdbc.Driver;
+
+import java.sql.Connection;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
+
+/**
+ * @Author: Song-zy
+ * @Date: 2021/11/28 22:31
+ * @Description:
+ */
+public class Jdbc01 {
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/db01?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+//        1.注册驱动
+        Class.forName(JDBC_DRIVER);
+        //得到连接
+        Properties properties = new Properties();
+        properties.setProperty("user", "root");
+        properties.setProperty("password", "8784szy2810");
+        Connection connect = DriverManager.getConnection(DB_URL, properties);//获取连接
+        String sql = "INSERT INTO stu VALUES (3,'tom')";
+        Statement statement = connect.createStatement();
+        int rows = statement.executeUpdate(sql);//执行sql受影响的行数，如果>0，成功
+        System.out.println(rows > 0 ? "Database connection succeeded" : "Database connection failure");
+        //关闭资源
+        statement.close();
+        connect.close();
+
+    }
+}
+
+```
+
+---
+
+两种连接方式
+
+```java
+public class JdbcConn {
+    String url = "jdbc:mysql://localhost:3306/db01?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
+    //连接方式1
+    @Test
+    public void connect01() throws SQLException {
+        Driver driver = new Driver();
+        Properties properties = new Properties();
+        properties.setProperty("user", "root");
+        properties.setProperty("password", "8784szy2810");
+        Connection conn = driver.connect(url, properties);
+        System.out.println("方式1：" + conn);
+    }
+
+    //连接方式2
+    @Test
+    public void connect02() throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");//可以不写，自动加载
+        Properties properties = new Properties();
+        properties.setProperty("user", "root");
+        properties.setProperty("password", "8784szy2810");
+        Connection conn = DriverManager.getConnection(url, properties);
+        System.out.println("方式2：" + conn);
+    }
+}
+
+```
+
+- 在实际应用中，要关闭连接。
+
+**最常用的方式**
+
+实际开发中，常常把端口号、用户名、密码写到一个mysql.properties配置文件中，更方便管理，==记住value值不要加引号。==
+
+```properties
+url=jdbc:mysql://localhost:3306/db01?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+user=root
+password=8784szy2810
+driver=com.mysql.cj.jdbc.Driver
+```
+
+java代码：
+
+```java
+    public void connect03() throws Exception {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("src/day_22/sql_demo/mysql.properties"));
+        String url = properties.getProperty("url");
+        String password = properties.getProperty("password");
+        String user = properties.getProperty("user");
+        String driver = properties.getProperty("driver");
+        //
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(url, user, password);
+        System.out.println(conn);
+    }
+```
+
+- Class.forName(driver);这句话可以不写，因为底层会自动调用。但是为了便于我们分析代码，尽量写上。
+
+---
+
+### 0115 ResultSet
+
+```java
+package day_22.sql_demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.*;
+import java.util.Properties;
+
+/**
+ * @Author: Song-zy
+ * @Date: 2021/12/2 20:26
+ * @Description:
+ */
+public class ResultSet_ {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
+        Properties properties = new Properties();
+        //加載配置文件
+        properties.load(new FileInputStream("src/day_22/sql_demo/mysql.properties"));
+        String url = properties.getProperty("url");
+        String password = properties.getProperty("password");
+        String user = properties.getProperty("user");
+        String driver = properties.getProperty("driver");
+        //注冊驱动
+        Class.forName(driver);
+        //获取连接
+        Connection conn = DriverManager.getConnection(url, user, password);
+        //
+        Statement statement = conn.createStatement();
+        //sql语句
+        String sql = "SELECT*FROM actor";
+        //返回单个的ResultSet对象
+        ResultSet resultSet = statement.executeQuery(sql);
+        //循环取出每一行;resultSet.next(),当没有下一行时，会返回false
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            String name = resultSet.getString(2);
+            System.out.println(id + "\t" + name);
+        }
+        //关闭连接
+        resultSet.close();
+        statement.close();
+        conn.close();
+    }
+}
+
+```
+
+上述代码返回结果：<img src="https://gitee.com/song-zhangyao/mapdepot1/raw/master/typora/202112022059689.png" alt="image-20211202205833997" width=100 />
+
+ResultSet底层：
+
+<img src="C:/Users/szy/AppData/Roaming/Typora/typora-user-images/image-20211202210014699.png" alt="image-20211202210014699" width=500 />
+
+---
+
+### 0116 SQL注入
+
+#### Statement
+
+- **基本介绍**
+
+  - Statement对象用于执行静态SQL语句并返回其生成的结果的对象
+
+  - 在连接建立后，需要对数据库进行访问，执行命名或是SQL语句，可以通过：
+
+    - Statement[存在SQL注入问题]，实际开发中不会用
+    - Preparedstatement[预处理]
+    - CallableStatement「存储过程]
+
+  - ==Statement对象执行SQL语句，存在SQL注入风险.==
+
+    ```SQL
+    CREATE TABLE IF NOT EXISTS admin
+    (
+        user VARCHAR(12) PRIMARY KEY,
+        pwd  VARCHAR(255) NOT NULL DEFAULT '123'
+    );
+    INSERT INTO admin
+    VALUES ('szy', '1234');
+    ```
+
+    - 当我们输入用户名和密码为：`1' OR`     `OR '1'='1` 就会出现如下状况
+
+      ```sql
+      SELECT*
+      FROM admin
+      WHERE user = '1' OR 'AND pwd = ' OR '1' = '1';
+      ```
+
+      就可以直接判断正确。出现漏洞。非法登录，但是Preparedstatement不会出现该漏洞。
+
+  - SQL注入是利用某些系统没有对用户输入的数据进行充分的检查，而在用户输入数据中注入非法的SQL语句段或命令，恶意攻击数据库。sqlinjection.sql
+
+  - 要防范SQL注入，只要用`PreparedStatement`(从Statement扩展而来）取代Statement就可以了
+
+#### PreparedStatement
+
+1. PreparedStatement执行的SQL语句中的参数用问号`？`来表示，调用PreparedStatement对象的setXxx()方法来设置这些参数。setXxx()方法有两个参数，第一个参数是要设置的SQL语句中的参数的索引（从1开始），第二个是设置的SQL语句中的参数的值。
+
+2. 调用executeQuery()，返回ResultSet对象
+
+3. 调用executeUpdate()：执行更新，包括增、删、修改
+
+   ```java
+   String sql = "SELECT* FROM admin WHERE user =? AND pwd =?";
+   PreparedStatement preparedStatement = conn.prepareStatement(sql);
+   preparedStatement.setString(1, admin_user);
+   preparedStatement.setString(2, admin_pwd);
+   //返回单个的ResultSet对象
+   ResultSet resultSet = preparedStatement.executeQuery();//括号里面不要加sql
+   ```
+
+   输入：用户名和密码为：`1' OR`     `OR '1'='1` 不会出现SQL注入问题。
+
+   - `preparedStatement.setString(1, admin_user);`中的1代表第一个问好，一一对应
+   - preparedStatement.executeQuery()里面不要加sql，会出现错误，但是statement.executeQuery(sql)要加入sql。
+
+**PrepareStatement预处理的好处：**
+
+1. 不再使用+拼接sql语句，减少语法错误
+2. 有效的解决了SQL注入问题！
+3. 大大减少了编译次数，效率较高
